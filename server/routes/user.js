@@ -13,4 +13,10 @@ routes.post("/register", [
 
 routes.post("/login", userControllers.userLogin)
 
+routes.get("/", userControllers.getUsers)
+
+routes.get("/:userId", userControllers.getUser)
+
+routes.delete("/:userId", userControllers.deleteUser)
+
 module.exports = routes;

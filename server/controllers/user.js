@@ -50,3 +50,30 @@ exports.userLogin = async (req, res) => {
         return res.status(500).json("Something went wrong, please try again!")
     }
 }
+
+exports.getUsers = async (req, res) => {
+    try {
+        const users = await User.find()
+        return res.json(users)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.deleteUser = async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.userId)
+        return res.json("User deleted successfully!")
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.getUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        return res.json(user)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
