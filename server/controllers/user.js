@@ -77,3 +77,40 @@ exports.getUser = async (req, res) => {
         return res.status(500).json("Something went wrong, please try again!")
     }
 }
+
+exports.getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        return res.json(user)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.updateUser = async (req, res) => {
+    try {
+        if (req.user._id.toString() === req.params.userId.toString()) {
+            const updatedUser = await User.findByIdAndUpdate(req.params.userId, {
+                ...req.body
+            }, { new: true })
+            return res.json(updatedUser)
+        } else {
+            return res.status(401).json("You're not authorized!")
+        }
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.updatePassword = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const securedPassword = await bcrypt.hash(password, 10)
+        const user = await User.findById(req.user._id)
+        user.password = securedPassword;
+        await user.save()
+        return res.json(user)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}

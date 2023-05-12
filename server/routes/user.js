@@ -3,6 +3,7 @@ const routes = express.Router()
 const { body } = require("express-validator")
 
 const userControllers = require('../controllers/user')
+const verifyToken = require("../middlewares/token/verifyToken")
 
 routes.post("/register", [
     body("firstName").trim().not().isEmpty().withMessage("First name is required."),
@@ -13,9 +14,15 @@ routes.post("/register", [
 
 routes.post("/login", userControllers.userLogin)
 
-routes.get("/", userControllers.getUsers)
+routes.get("/", verifyToken, userControllers.getUsers)
 
 routes.get("/:userId", userControllers.getUser)
+
+routes.get("/profile/:userId", verifyToken, userControllers.getProfile)
+
+routes.put("/password", verifyToken, userControllers.updatePassword)
+
+routes.put("/:userId", verifyToken, userControllers.updateUser)
 
 routes.delete("/:userId", userControllers.deleteUser)
 
