@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const crypto = require("crypto")
 
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -86,5 +87,12 @@ const userSchema = new Schema({
     accountVerificationTokenExpire: Date,
     bio: String,
 }, { timestamps: true })
+
+userSchema.methods.createVerificationToken = async function () {
+    const verificationToken = crypto.randomBytes(32).toString('hex')
+    this.accountVerificationToken = crypto.createHash("sha256").update(verificationToken).digest("hex")
+    this.accountVerificationTokenExpire = Date.now() + 30 * 60 * 1000
+    return verificationToken
+}
 
 module.exports = mongoose.model("User", userSchema)

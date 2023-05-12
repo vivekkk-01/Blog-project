@@ -16,6 +16,10 @@ routes.post("/login", userControllers.userLogin)
 
 routes.get("/", verifyToken, userControllers.getUsers)
 
+routes.get("/generate-verification-token", verifyToken, userControllers.generateVerificationToken)
+
+routes.post("/verify-user", verifyToken, userControllers.userVerification)
+
 routes.get("/:userId", userControllers.getUser)
 
 routes.get("/profile/:userId", verifyToken, userControllers.getProfile)

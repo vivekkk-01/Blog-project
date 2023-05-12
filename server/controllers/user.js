@@ -1,6 +1,8 @@
 const { validationResult } = require("express-validator")
 const User = require("../models/User")
 const bcrypt = require('bcryptjs')
+const crypto = require("crypto")
+const sgMail = require("@sendgrid/mail")
 const generateToken = require("../middlewares/token/generateToken")
 
 exports.userRegister = async (req, res) => {
@@ -191,6 +193,50 @@ exports.updateUnBlock = async (req, res) => {
         const user = await User.findByIdAndUpdate(req.params.userId, {
             isBlocked: false
         }, { new: true })
+        return res.json(user)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.generateVerificationToken = async (req, res) => {
+    try {
+        sgMail.setApiKey(process.env.SEND_GRID_API_KEY)
+        const user = await User.findById(req.user._id)
+        const verificationToken = await user.createVerificationToken()
+        await user.save()
+        const emailUrl = `If you requested to verify your account, verify now within 10 minutes, otherwise the token will expire. <a href="http://localhost:3000/verify-account/${verificationToken}">Verify account</a>`
+        const msg = {
+            from: "chimnanivivek14@gmail.com",
+            to: user.email,
+            subject: "Hey!",
+            html: emailUrl
+        }
+
+        await sgMail.send(msg)
+        return res.json("Email sent successfully!")
+
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.userVerification = async (req, res) => {
+    try {
+        const { token } = req.body
+        const hashedToken = crypto.createHash("sha256").update(token).digest("hex")
+        const user = await User.findOne({ accountVerificationToken: hashedToken })
+        if (!user) {
+            return res.status(401).json("Enter a correct token")
+        }
+        if (!user.accountVerificationTokenExpire > new Date()) {
+            return res.status(401).json("Token is expired, try again later.")
+        }
+
+        user.isAccountVerified = true;
+        user.accountVerificationToken = undefined;
+        user.accountVerificationTokenExpire = undefined;
+        await user.save()
         return res.json(user)
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
