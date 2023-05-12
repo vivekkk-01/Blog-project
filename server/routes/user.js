@@ -22,6 +22,10 @@ routes.get("/profile/:userId", verifyToken, userControllers.getProfile)
 
 routes.put("/password", verifyToken, userControllers.updatePassword)
 
+routes.put("/follow", verifyToken, userControllers.updateFollow)
+
+routes.put("/unfollow", verifyToken, userControllers.updateUnfollow)
+
 routes.put("/:userId", verifyToken, userControllers.updateUser)
 
 routes.delete("/:userId", userControllers.deleteUser)

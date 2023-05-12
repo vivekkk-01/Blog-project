@@ -114,3 +114,63 @@ exports.updatePassword = async (req, res) => {
         return res.status(500).json("Something went wrong, please try again!")
     }
 }
+
+exports.updateFollow = async (req, res) => {
+    try {
+        const { followId } = req.body;
+        const loggedInUserId = req.user._id;
+        const followedUser = await User.findById(followId)
+        const loggedInUser = await User.findById(loggedInUserId)
+        if (followedUser.followers.find(follower => follower.toString() === loggedInUserId.toString())) {
+            return res.status(409).json("You already follow this user.")
+        } else {
+            followedUser.isFollowing = true;
+            followedUser.followers.push(loggedInUserId)
+            await followedUser.save()
+        }
+
+        if (loggedInUser.following.find(follow => follow.toString() === followId.toString())) {
+            return res.status(409).json("You already follow this user.")
+        } else {
+            loggedInUser.following.push(followId)
+            await loggedInUser.save()
+        }
+
+        return res.json(loggedInUser)
+
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.updateUnfollow = async (req, res) => {
+    try {
+        const { unfollowId } = req.body;
+        const loggedInUserId = req.user._id;
+        const unfollowedUser = await User.findById(unfollowId)
+        const loggedInUser = await User.findById(loggedInUserId)
+        let updatedUser;
+
+        if (unfollowedUser.followers.find(follower => follower.toString() === loggedInUserId.toString())) {
+            await User.findByIdAndUpdate(unfollowId, {
+                $pull: { followers: loggedInUserId, },
+                isFollowing: false
+            }, { new: true })
+        } else {
+            return res.status(409).json("You don't follow this user.")
+        }
+
+        if (loggedInUser.following.find(follow => follow.toString() === unfollowId.toString())) {
+            updatedUser = await User.findByIdAndUpdate(loggedInUserId, {
+                $pull: { following: unfollowId }
+            }, { new: true })
+        } else {
+            return res.status(409).json("You don't follow this user.")
+        }
+
+        return res.json(updatedUser)
+
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
