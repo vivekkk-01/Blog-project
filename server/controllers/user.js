@@ -242,3 +242,52 @@ exports.userVerification = async (req, res) => {
         return res.status(500).json("Something went wrong, please try again!")
     }
 }
+
+exports.forgotPasswordToken = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email })
+        if (!user) return res.status(401).json("User with that email address doesn't exist.")
+        const token = await user.createPasswordResetToken()
+        await user.save()
+
+        const resetUrl = `If you requested to reset your password, reset it now within 10 minutes, otherwise the token will expire. <a href="http://localhost:3000/verify-account/${token}">Verify account</a>`
+        const msg = {
+            from: "chimnanivivek14@gmail.com",
+            to: user.email,
+            subject: "Hey!",
+            html: resetUrl
+        }
+
+        await sgMail.send(msg)
+        return res.json(`A verification message is sent successfully to ${email}. Reset now within 10 minutes, ${resetUrl}.`)
+
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.resetPassword = async (req, res) => {
+    console.log("Done")
+    try {
+        const { token, password } = req.body;
+        const hashedToken = crypto.createHash("sha256").update(token).digest("hex")
+        const user = await User.findOne({ passwordResetToken: hashedToken })
+        if (!user) {
+            return res.status(401).json("Enter a correct token")
+        }
+        if (!user.passwordResetTokenExpire > new Date()) {
+            return res.status(401).json("Token is expired, try again later.")
+        }
+
+        user.password = await bcrypt.hash(password, 10)
+        user.passwordResetToken = undefined;
+        user.passwordResetTokenExpire = undefined;
+        user.passwordChangedAt = new Date()
+        await user.save()
+
+        return res.json("Password changed successfully!")
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}

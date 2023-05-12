@@ -95,4 +95,11 @@ userSchema.methods.createVerificationToken = async function () {
     return verificationToken
 }
 
+userSchema.methods.createPasswordResetToken = async function () {
+    const verificationToken = crypto.randomBytes(32).toString('hex')
+    this.passwordResetToken = crypto.createHash("sha256").update(verificationToken).digest("hex")
+    this.passwordResetTokenExpire = Date.now() + 30 * 60 * 1000 //10 minutes
+    return verificationToken
+}
+
 module.exports = mongoose.model("User", userSchema)
