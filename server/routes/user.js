@@ -26,6 +26,10 @@ routes.put("/follow", verifyToken, userControllers.updateFollow)
 
 routes.put("/unfollow", verifyToken, userControllers.updateUnfollow)
 
+routes.put("/block-user/:userId", verifyToken, userControllers.updateBlock)
+
+routes.put("/unblock-user/:userId", verifyToken, userControllers.updateUnBlock)
+
 routes.put("/:userId", verifyToken, userControllers.updateUser)
 
 routes.delete("/:userId", userControllers.deleteUser)

@@ -174,3 +174,25 @@ exports.updateUnfollow = async (req, res) => {
         return res.status(500).json("Something went wrong, please try again!")
     }
 }
+
+exports.updateBlock = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.userId, {
+            isBlocked: true
+        }, { new: true })
+        return res.json(user)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.updateUnBlock = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.userId, {
+            isBlocked: false
+        }, { new: true })
+        return res.json(user)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
