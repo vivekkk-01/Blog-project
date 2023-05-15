@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs')
 const crypto = require("crypto")
 const sgMail = require("@sendgrid/mail")
 const generateToken = require("../middlewares/token/generateToken")
+const cloudinaryUploadImg = require("../utils/cloudinary")
+const fs = require("fs")
 
 exports.userRegister = async (req, res) => {
     try {
@@ -268,7 +270,6 @@ exports.forgotPasswordToken = async (req, res) => {
 }
 
 exports.resetPassword = async (req, res) => {
-    console.log("Done")
     try {
         const { token, password } = req.body;
         const hashedToken = crypto.createHash("sha256").update(token).digest("hex")
@@ -287,6 +288,24 @@ exports.resetPassword = async (req, res) => {
         await user.save()
 
         return res.json("Password changed successfully!")
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.uploadProfilePhoto = async (req, res, next) => {
+    try {
+        const localPath = `public/images/profile/${req.file.filename}`
+        const cloudinaryImage = await cloudinaryUploadImg(localPath)
+        const user = await User.findByIdAndUpdate(req.user._id, {
+            profilePhoto: cloudinaryImage.url
+        }, { new: true })
+        fs.unlink(localPath, (err) => {
+            if (err) {
+                return next(err)
+            }
+        })
+        res.json(user)
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
     }
