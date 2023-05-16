@@ -4,7 +4,7 @@ const { body } = require("express-validator")
 
 const userControllers = require('../controllers/user')
 const verifyToken = require("../middlewares/token/verifyToken")
-const { profilePhotoUpload, profilePhotoResize } = require("../middlewares/upload/profilePhotoUpload")
+const { photoUpload, profilePhotoResize } = require("../middlewares/upload/photoUpload")
 
 routes.post("/register", [
     body("firstName").trim().not().isEmpty().withMessage("First name is required."),
@@ -25,7 +25,7 @@ routes.post("/forgot-password-token", userControllers.forgotPasswordToken)
 
 routes.post("/reset-password", userControllers.resetPassword)
 
-routes.post("/profile-photo-upload", verifyToken, profilePhotoUpload.single("image"), profilePhotoResize, userControllers.uploadProfilePhoto)
+routes.post("/profile-photo-upload", verifyToken, photoUpload.single("image"), profilePhotoResize, userControllers.uploadProfilePhoto)
 
 routes.get("/:userId", userControllers.getUser)
 

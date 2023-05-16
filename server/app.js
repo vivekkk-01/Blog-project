@@ -7,8 +7,10 @@ const PORT = process.env.PORT || 5000
 app.use(express.json())
 
 const userRoutes = require("./routes/user")
+const postRoutes = require("./routes/post")
 
 app.use("/api/users", userRoutes)
+app.use("/api/posts", postRoutes)
 
 app.use((err, req, res, next) => {
     const message = err.message || "Something went wrong, please try again!"

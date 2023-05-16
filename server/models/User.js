@@ -86,7 +86,13 @@ const userSchema = new Schema({
     accountVerificationToken: String,
     accountVerificationTokenExpire: Date,
     bio: String,
-}, { timestamps: true })
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } })
+
+userSchema.virtual("posts", {
+    ref: "Post",
+    foreignField: "user",
+    localField: "_id",
+})
 
 userSchema.methods.createVerificationToken = async function () {
     const verificationToken = crypto.randomBytes(32).toString('hex')

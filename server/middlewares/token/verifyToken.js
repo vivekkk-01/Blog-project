@@ -3,6 +3,9 @@ const User = require("../../models/User")
 
 const verifyToken = async (req, res, next) => {
     let token
+    if (!req.headers.authorization) {
+        return res.status(403).json("You are not authorized.")
+    }
     if (req.headers.authorization.startsWith("Bearer")) {
         token = req.headers.authorization.split(" ")[1];
         jwt.verify(token, process.env.SECRET_KEY, async (error, decode) => {

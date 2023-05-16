@@ -84,7 +84,7 @@ exports.getUser = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId)
+        const user = await User.findById(req.params.userId).populate("posts")
         return res.json(user)
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
