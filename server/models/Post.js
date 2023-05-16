@@ -13,14 +13,6 @@ const postSchema = new Schema({
         required: [true, "Post category is required."],
         default: "All"
     },
-    isLiked: {
-        type: Boolean,
-        default: false,
-    },
-    isDisliked: {
-        type: Boolean,
-        default: false,
-    },
     numViews: {
         type: Number,
         default: 0

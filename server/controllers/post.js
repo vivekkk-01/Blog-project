@@ -44,7 +44,7 @@ exports.getPosts = async (req, res) => {
 
 exports.getPost = async (req, res) => {
     try {
-        const post = await Post.findById(req.params.postId).populate("user")
+        const post = await Post.findById(req.params.postId).populate("user likes dislikes")
         post.numViews += 1
         await post.save()
         return res.json(post)
@@ -66,6 +66,64 @@ exports.deletePost = async (req, res) => {
     try {
         const post = await Post.findByIdAndDelete(req.params.postId)
         return res.json(post)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.toggleLike = async (req, res) => {
+    try {
+        let post = await Post.findById(req.params.postId)
+        const user = req.user._id;
+        const alreadyLiked = post.likes.find(userId => userId.toString() === user.toString())
+        const alreadyDisliked = post.dislikes.find(userId => userId.toString() === user.toString())
+
+        if (alreadyLiked) {
+            post = await Post.findByIdAndUpdate(req.params.postId, {
+                $pull: { likes: user },
+            }, { new: true })
+            return res.json(post)
+        } else if (alreadyDisliked) {
+            post = await Post.findByIdAndUpdate(req.params.postId, {
+                $pull: { dislikes: user },
+                $push: { likes: user }
+            }, { new: true })
+            return res.json(post)
+        } else {
+            post = await Post.findByIdAndUpdate(req.params.postId, {
+                $push: { likes: user }
+            }, { new: true })
+            return res.json(post)
+        }
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}
+
+exports.toggleDislike = async (req, res) => {
+    try {
+        let post = await Post.findById(req.params.postId)
+        const user = req.user._id;
+        const alreadyDisliked = post.dislikes.find(userId => userId.toString() === user.toString())
+        const alreadyLiked = post.likes.find(userId => userId.toString() === user.toString())
+
+        if (alreadyDisliked) {
+            post = await Post.findByIdAndUpdate(req.params.postId, {
+                $pull: { dislikes: user },
+            }, { new: true })
+            return res.json(post)
+        } else if (alreadyLiked) {
+            post = await Post.findByIdAndUpdate(req.params.postId, {
+                $pull: { likes: user },
+                $push: { dislikes: user }
+            }, { new: true })
+            return res.json(post)
+        } else {
+            post = await Post.findByIdAndUpdate(req.params.postId, {
+                $push: { dislikes: user }
+            }, { new: true })
+            return res.json(post)
+        }
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
     }

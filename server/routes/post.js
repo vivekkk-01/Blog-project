@@ -16,4 +16,8 @@ routes.put("/:postId", verifyToken, postControllers.updatePost)
 
 routes.delete("/:postId", verifyToken, postControllers.deletePost)
 
+routes.put("/likes/:postId", verifyToken, postControllers.toggleLike)
+
+routes.put("/dislikes/:postId", verifyToken, postControllers.toggleDislike)
+
 module.exports = routes;
