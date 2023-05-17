@@ -46,6 +46,7 @@ exports.userLogin = async (req, res) => {
             id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
+            isAdmin: user.isAdmin,
             email: user.email,
             profilePhoto: user.profilePhoto,
             token: generateToken(user._id)
