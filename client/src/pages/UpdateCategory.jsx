@@ -60,7 +60,7 @@ const UpdateCategory = () => {
 
   useEffect(() => {
     if (isCategoryDelete) {
-        navigate("/category-list");
+      navigate("/category-list");
     }
   }, [isCategoryDelete]);
 
@@ -169,7 +169,7 @@ export default UpdateCategory;
 
 export const loader = () => {
   const userAuth = localStorage.getItem("userInfo");
-  if (!userAuth) {
+  if (!userAuth && !userAuth?.isAdmin) {
     return redirect("/login");
   }
   return null;

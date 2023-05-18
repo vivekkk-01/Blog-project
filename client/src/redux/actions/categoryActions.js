@@ -72,7 +72,7 @@ export const fetchCategoryAction = (categoryId) => async (dispatch) => {
     try {
         const { data } = await axios.get(`${baseUrl}/${categoryId}`, {
             headers: {
-                // Authorization: `Bearer ${userAuth.token}`
+                Authorization: `Bearer ${userAuth.token}`
             }
         })
         dispatch(fetchCategory(data))

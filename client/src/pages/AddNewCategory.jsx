@@ -132,7 +132,7 @@ export default AddNewCategory;
 
 export const loader = () => {
   const userAuth = localStorage.getItem("userInfo");
-  if (!userAuth) {
+  if (!userAuth && !userAuth?.isAdmin) {
     return redirect("/login");
   }
   return null;
