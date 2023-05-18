@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   BellIcon,
   MenuIcon,
@@ -59,19 +59,18 @@ const PrivateNavbar = ({ isLogin }) => {
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                   {navigation.map((item) => (
-                    <Link
+                    <NavLink
                       key={item.name}
                       to={item.href}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "px-3 py-2 rounded-md text-sm font-medium"
-                      )}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                      }
                       aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
-                    </Link>
+                    </NavLink>
                   ))}
                 </div>
               </div>

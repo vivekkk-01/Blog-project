@@ -34,6 +34,7 @@ exports.updateCategory = async (req, res) => {
     try {
         const category = await Category.findById(req.params.categoryId)
         category.title = req.body.title
+        await category.save()
         return res.json(category)
     } catch (error) {
         res.status(500).json("Something went wrong, please try again!")
