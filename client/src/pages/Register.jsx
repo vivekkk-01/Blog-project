@@ -39,11 +39,8 @@ const Register = () => {
     },
   });
 
-  console.log(registered);
-
   useEffect(() => {
     if (registered) {
-      console.log(registered);
       return navigate("/login");
     }
   }, [registered]);

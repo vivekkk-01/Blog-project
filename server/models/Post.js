@@ -11,7 +11,6 @@ const postSchema = new Schema({
     category: {
         type: String,
         required: [true, "Post category is required."],
-        default: "All"
     },
     numViews: {
         type: Number,
@@ -42,6 +41,12 @@ const postSchema = new Schema({
         type: String,
         default: "https://cdn.pixabay.com/photo/2023/01/19/03/07/marble-7728244_960_720.jpg"
     }
-}, { timestamps: true })
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } })
+
+postSchema.virtual("comments", {
+    ref: "Comment",
+    foreignField: "post",
+    localField: "_id",
+})
 
 module.exports = mongoose.model("Post", postSchema)

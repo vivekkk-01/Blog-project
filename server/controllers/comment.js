@@ -15,7 +15,7 @@ exports.createComment = async (req, res) => {
 
 exports.getComments = async (req, res) => {
     try {
-        const comments = await Comment.find({ post: req.params.postId })
+        const comments = await Comment.find({ post: req.params.postId }).sort({ createdAt: -1 }).populate("user")
         return res.json(comments)
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
@@ -24,7 +24,7 @@ exports.getComments = async (req, res) => {
 
 exports.getComment = async (req, res) => {
     try {
-        const comment = await Comment.findOne({ post: req.params.postId, _id: req.params.commentId })
+        const comment = await Comment.findOne({ post: req.params.postId, _id: req.params.commentId }).populate("user")
         return res.json(comment)
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")

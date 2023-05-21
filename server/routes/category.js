@@ -4,7 +4,7 @@ const routes = express.Router()
 const verifyToken = require("../middlewares/token/verifyToken")
 const categoryControllers = require("../controllers/category")
 
-routes.get("/", verifyToken, categoryControllers.getCategories)
+routes.get("/", categoryControllers.getCategories)
 
 routes.get("/:categoryId", verifyToken, categoryControllers.getCategory)
 

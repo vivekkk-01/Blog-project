@@ -41,7 +41,6 @@ const CategoryList = () => {
 
   useEffect(() => {
     if (!userAuth && !userAuth?.isAdmin) {
-      console.log("Done");
       navigate("/login");
     }
   }, [userAuth]);

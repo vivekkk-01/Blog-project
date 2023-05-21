@@ -14,14 +14,16 @@ exports.createPost = async (req, res) => {
             })
             return res.status(400).json("Creating post failed because your post contains profane words. Also, you've been blocked by the platform.")
         }
-        const localPath = `public/images/posts/${req.file.filename}`
-        const cloudinaryImage = await cloudinaryUploadImg(localPath)
-        req.body.image = cloudinaryImage.url
-        fs.unlink(localPath, (err) => {
-            if (err) {
-                return next(err)
-            }
-        })
+        if (req.file) {
+            const localPath = `public/images/posts/${req.file.filename}`
+            const cloudinaryImage = await cloudinaryUploadImg(localPath)
+            req.body.image = cloudinaryImage.url
+            fs.unlink(localPath, (err) => {
+                if (err) {
+                    return next(err)
+                }
+            })
+        }
         const user = await User.findById(req.user._id)
         user.postCount += 1;
         await user.save()
@@ -35,8 +37,14 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
     try {
-        const posts = await Post.find().populate("user")
-        return res.json(posts)
+        const category = req.query.category;
+        if (category) {
+            const posts = await Post.find({ category }).populate("user")
+            return res.json(posts)
+        } else {
+            const posts = await Post.find().populate("user")
+            return res.json(posts)
+        }
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
     }
@@ -44,7 +52,7 @@ exports.getPosts = async (req, res) => {
 
 exports.getPost = async (req, res) => {
     try {
-        const post = await Post.findById(req.params.postId).populate("user likes dislikes")
+        const post = await Post.findById(req.params.postId).populate("user likes dislikes comments")
         post.numViews += 1
         await post.save()
         return res.json(post)

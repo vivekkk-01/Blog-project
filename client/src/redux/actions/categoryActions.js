@@ -20,13 +20,8 @@ export const addCategoryAction = (title) => async (dispatch) => {
 
 export const fetchCategoriesAction = () => async (dispatch) => {
     dispatch(setLoading())
-    const userAuth = JSON.parse(localStorage.getItem("userInfo"))
     try {
-        const { data } = await axios.get(baseUrl, {
-            headers: {
-                Authorization: `Bearer ${userAuth.token}`
-            }
-        })
+        const { data } = await axios.get(baseUrl)
         dispatch(setCategoryList(data))
     } catch (error) {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
