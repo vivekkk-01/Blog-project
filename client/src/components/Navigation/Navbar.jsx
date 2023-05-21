@@ -10,9 +10,9 @@ const Navbar = () => {
   return !userAuth ? (
     <PublicNavbar />
   ) : userAuth && !userAuth.isAdmin ? (
-    <PrivateNavbar />
+    <PrivateNavbar userAuth={userAuth} />
   ) : (
-    userAuth && userAuth.isAdmin && <AdminNavbar />
+    userAuth && userAuth.isAdmin && <AdminNavbar userAuth={userAuth} />
   );
 };
 
