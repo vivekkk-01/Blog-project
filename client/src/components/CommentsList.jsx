@@ -47,7 +47,7 @@ const CommentsList = ({ comments }) => {
                       </p>
                       {/* Check if is the same user created this comment */}
 
-                      {userAuth.id === comment?.user._id && (
+                      {userAuth?.id === comment?.user._id && (
                         <p className="flex">
                           <button
                             onClick={deleteCommentHandler.bind(
