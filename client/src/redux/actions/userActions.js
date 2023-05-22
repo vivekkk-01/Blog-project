@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, resetProfile, setUpdateProfile, getUserDetails } from '../slices/userSlices'
+import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser } from '../slices/userSlices'
 const baseUrl = "http://localhost:5000/api/users"
 
 export const registerUserAction = (userData) => async (dispatch) => {
@@ -83,6 +83,49 @@ export const fetchUserDetails = (userId) => async (dispatch) => {
     } catch (error) {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
         dispatch(setError(err))
+    }
+}
+
+export const getUseAction = () => async (dispatch) => {
+    const { id } = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        const { data } = await axios.get(`${baseUrl}/${id}`)
+        dispatch(setUser(data))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const userFollowAction = (followId) => async (dispatch) => {
+    dispatch(setFollowLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        const { data } = await axios.put(`${baseUrl}/follow`, { followId }, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setFollowUser(data))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setFollowError(err))
+    }
+}
+
+export const userUnfollowAction = (unfollowId) => async (dispatch) => {
+    dispatch(setFollowLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        const { data } = await axios.put(`${baseUrl}/unfollow`, { unfollowId }, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setUnfollowUser(data))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setFollowError(err))
     }
 }
 

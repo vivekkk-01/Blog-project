@@ -134,10 +134,10 @@ exports.updateFollow = async (req, res) => {
             await followedUser.save()
         }
 
-        if (loggedInUser.following.find(follow => follow.toString() === followId.toString())) {
+        if (loggedInUser.followings.find(follow => follow.toString() === followId.toString())) {
             return res.status(409).json("You already follow this user.")
         } else {
-            loggedInUser.following.push(followId)
+            loggedInUser.followings.push(followId)
             await loggedInUser.save()
         }
 
@@ -165,9 +165,9 @@ exports.updateUnfollow = async (req, res) => {
             return res.status(409).json("You don't follow this user.")
         }
 
-        if (loggedInUser.following.find(follow => follow.toString() === unfollowId.toString())) {
+        if (loggedInUser.followings.find(follow => follow.toString() === unfollowId.toString())) {
             updatedUser = await User.findByIdAndUpdate(loggedInUserId, {
-                $pull: { following: unfollowId }
+                $pull: { followings: unfollowId }
             }, { new: true })
         } else {
             return res.status(409).json("You don't follow this user.")

@@ -8,6 +8,10 @@ const initialState = {
     userDetails: null,
     isProfilePhoto: false,
     isUpdateProfile: false,
+    userFollowings: [],
+    userFollowers: [],
+    followLoading: false,
+    followError: false,
 }
 
 const userSlice = createSlice({
@@ -59,6 +63,27 @@ const userSlice = createSlice({
             state.error = null;
             state.userDetails = payload;
         },
+        setUser: (state, { payload }) => {
+            state.userFollowers = payload.followers;
+            state.userFollowings = payload.followings;
+        },
+        setFollowLoading: (state) => {
+            state.followLoading = true
+        },
+        setFollowUser: (state, { payload }) => {
+            state.followLoading = false;
+            state.followError = null;
+            state.userFollowings = payload.followings;
+        },
+        setUnfollowUser: (state, { payload }) => {
+            state.followLoading = false;
+            state.followError = null;
+            state.userFollowings = payload.followings;
+        },
+        setFollowError: (state, { payload }) => {
+            state.followLoading = false;
+            state.followError = payload;
+        },
         resetProfile: (state) => {
             state.loading = false;
             state.isProfilePhoto = false;
@@ -77,5 +102,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUpdateProfile, getUserDetails, resetProfile } = userSlice.actions;
+export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setUser, setProfilePhoto, setUpdateProfile, getUserDetails, setFollowError, setFollowLoading, setFollowUser, setUnfollowUser, resetProfile } = userSlice.actions;
 export default userSlice.reducer;

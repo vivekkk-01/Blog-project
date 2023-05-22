@@ -68,7 +68,7 @@ const userSchema = new Schema({
             }
         ]
     },
-    following: {
+    followings: {
         type: [
             {
                 type: Schema.Types.ObjectId,
