@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setLoading, setError, setRegistered, setLogin, setLogout } from '../slices/userSlices'
+import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, resetProfile, setUpdateProfile, getUserDetails } from '../slices/userSlices'
 const baseUrl = "http://localhost:5000/api/users"
 
 export const registerUserAction = (userData) => async (dispatch) => {
@@ -23,6 +23,71 @@ export const loginUserAction = (userData) => async (dispatch) => {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
         dispatch(setError(err))
     }
+}
+
+export const userProfileAction = (profileId) => async (dispatch) => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    dispatch(setLoading())
+    try {
+        const { data } = await axios.get(`${baseUrl}/profile/${profileId}`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setProfile(data))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const uploadProfilePhotoAction = (profilePhoto) => async (dispatch) => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    dispatch(setLoading())
+    const formData = new FormData()
+    formData.append("image", profilePhoto)
+    try {
+        const { data } = await axios.post(`${baseUrl}/profile-photo-upload`, formData, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setProfilePhoto(data))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const updateProfileAction = (profileData) => async (dispatch) => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    dispatch(setLoading())
+    try {
+        const { data } = await axios.put(`${baseUrl}/${userInfo.id}`, profileData, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setUpdateProfile(data))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const fetchUserDetails = (userId) => async (dispatch) => {
+    dispatch(setLoading())
+    try {
+        const { data } = await axios.get(`${baseUrl}/${userId}`)
+        dispatch(getUserDetails(data))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const resetProfileAction = () => (dispatch) => {
+    dispatch(resetProfile())
 }
 
 export const logoutUserAction = () => (dispatch) => {

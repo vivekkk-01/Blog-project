@@ -24,9 +24,8 @@ function classNames(...classes) {
 }
 
 const PrivateNavbar = ({ userAuth }) => {
-  console.log(userAuth);
   const userNavigation = [
-    { name: "Your Profile", href: `/profile` },
+    { name: "Your Profile", href: `/profile/${userAuth.id}` },
     { name: "Change your password", href: "/update-password" },
   ];
 

@@ -22,6 +22,14 @@ import Posts from "./pages/Posts";
 import Post, { loader as postLoader } from "./pages/Post";
 
 import UpdatePost, { loader as updatePostLoader } from "./pages/UpdatePost";
+import Profile, { loader as profileLoader } from "./pages/Profile";
+
+import UploadProfilePhoto, {
+  loader as uploadProfilePhotoLoader,
+} from "./pages/UploadProfilePhoto";
+import UpdateProfile, {
+  loader as updateProfileLoader,
+} from "./pages/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +65,21 @@ const router = createBrowserRouter([
         path: "update-post/:postId",
         element: <UpdatePost />,
         loader: updatePostLoader,
+      },
+      {
+        path: "profile/:profileId",
+        element: <Profile />,
+        loader: profileLoader,
+      },
+      {
+        path: "upload-profile-photo",
+        element: <UploadProfilePhoto />,
+        loader: uploadProfilePhotoLoader,
+      },
+      {
+        path: "update-profile",
+        element: <UpdateProfile />,
+        loader: updateProfileLoader,
       },
     ],
   },

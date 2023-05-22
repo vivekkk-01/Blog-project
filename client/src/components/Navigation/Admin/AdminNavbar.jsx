@@ -30,7 +30,7 @@ function classNames(...classes) {
 const AdminNavbar = ({ userAuth }) => {
   //Navigation
   const userNavigation = [
-    { name: "Your Profile", href: `/profile` },
+    { name: "Your Profile", href: `/profile/${userAuth.id}` },
     { name: "Change your password", href: "/update-password" },
   ];
 
