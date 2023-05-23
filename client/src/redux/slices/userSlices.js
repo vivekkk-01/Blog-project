@@ -16,7 +16,8 @@ const initialState = {
     isGenVerifiedToken: false,
     genVerifiedTokenError: null,
     genVerifiedTokenLoading: false,
-    isVerified: false
+    isVerified: false,
+    users: []
 }
 
 const userSlice = createSlice({
@@ -111,6 +112,11 @@ const userSlice = createSlice({
             state.error = null;
             state.isVerified = payload;
         },
+        setUsers: (state, { payload }) => {
+            state.loading = false;
+            state.error = null;
+            state.users = payload;
+        },
         resetProfile: (state) => {
             state.loading = false;
             state.isProfilePhoto = false;
@@ -132,5 +138,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setUser, setProfilePhoto, setUpdateProfile, getUserDetails, setFollowError, setFollowLoading, setFollowUser, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, resetProfile } = userSlice.actions;
+export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setUser, setProfilePhoto, setUpdateProfile, getUserDetails, setFollowError, setFollowLoading, setFollowUser, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers, resetProfile } = userSlice.actions;
 export default userSlice.reducer;

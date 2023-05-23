@@ -59,7 +59,7 @@ exports.userLogin = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
     try {
-        const users = await User.find()
+        const users = await User.find().populate("posts")
         return res.json(users)
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
