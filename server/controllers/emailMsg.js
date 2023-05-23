@@ -4,6 +4,7 @@ const Filter = require("bad-words")
 
 exports.sendEmailMsg = async (req, res) => {
     try {
+        sgMail.setApiKey(process.env.SEND_GRID_API_KEY)
         const { to, subject, message } = req.body
 
         const filter = new Filter()

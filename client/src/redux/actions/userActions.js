@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser } from '../slices/userSlices'
+import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent } from '../slices/userSlices'
 const baseUrl = "http://localhost:5000/api/users"
 
 export const registerUserAction = (userData) => async (dispatch) => {
@@ -126,6 +126,24 @@ export const userUnfollowAction = (unfollowId) => async (dispatch) => {
     } catch (error) {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
         dispatch(setFollowError(err))
+    }
+}
+
+export const userMailSendingAction = (mailData) => async (dispatch) => {
+    dispatch(setLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    console.log(mailData)
+    try {
+        await axios.post(`http://localhost:5000/api/email-message`, mailData
+            , {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            })
+        dispatch(setMailSent())
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
     }
 }
 

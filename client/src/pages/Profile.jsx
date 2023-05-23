@@ -37,6 +37,7 @@ const Profile = () => {
     userFollowings,
     followLoading,
     followError,
+    isMailSent,
   } = useSelector((state) => state.user);
   const { userAuth } = useSelector((state) => state.user);
 
@@ -64,6 +65,13 @@ const Profile = () => {
     dispatch(getUseAction());
   }, [profileId]);
 
+  useEffect(() => {
+    if (isMailSent) {
+      toast.success("Mail Sent Successfully!");
+      dispatch(resetProfileAction());
+    }
+  }, [isMailSent]);
+
   const followHandler = () => {
     dispatch(userFollowAction(profileId));
   };
@@ -71,8 +79,6 @@ const Profile = () => {
   const unfollowHandler = () => {
     dispatch(userUnfollowAction(profileId));
   };
-
-  console.log(userFollowings);
 
   return (
     <div className="h-screen flex overflow-hidden bg-white">
@@ -95,6 +101,7 @@ const Profile = () => {
             justifyContent: "center",
             alignItems: "center",
             height: "80vh",
+            width: "100%",
           }}
         >
           <h1 className="text-center my-4 text-3xl text-red-600">{error}</h1>
@@ -234,7 +241,11 @@ const Profile = () => {
                           {/* Send Mail */}
                           {profile?._id !== userAuth?.id && (
                             <Link
-                              // to={`/send-mail?email=${profile?.email}`}
+                              to={`/send-mail`}
+                              state={{
+                                email: profile?.email,
+                                id: profile?._id,
+                              }}
                               className="inline-flex justify-center bg-indigo-900 px-4 py-2 border border-yellow-700 shadow-sm text-sm font-medium rounded-md text-gray-700  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                             >
                               <MailIcon
@@ -242,7 +253,7 @@ const Profile = () => {
                                 aria-hidden="true"
                               />
                               <span className="text-base mr-2  text-bold text-yellow-500">
-                                Send Message
+                                Send Mail
                               </span>
                             </Link>
                           )}

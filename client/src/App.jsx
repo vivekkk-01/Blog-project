@@ -30,6 +30,7 @@ import UploadProfilePhoto, {
 import UpdateProfile, {
   loader as updateProfileLoader,
 } from "./pages/UpdateProfile";
+import SendEmail, { loader as sendEmailLoader } from "./pages/SendEmail";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
         element: <UpdateProfile />,
         loader: updateProfileLoader,
       },
+      { path: "send-mail", element: <SendEmail />, loader: sendEmailLoader },
     ],
   },
 ]);
