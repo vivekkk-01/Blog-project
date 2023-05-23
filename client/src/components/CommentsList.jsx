@@ -2,6 +2,7 @@ import { TrashIcon } from "@heroicons/react/solid";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCommentAction } from "../redux/actions/commentActions";
+import { Link } from "react-router-dom";
 
 const CommentsList = ({ comments }) => {
   const { userAuth } = useSelector((state) => state.user);
@@ -28,16 +29,20 @@ const CommentsList = ({ comments }) => {
               <>
                 <li key={comment._id} className="py-4  w-full">
                   <div className="flex space-x-3">
-                    <img
-                      className="h-6 w-6 rounded-full"
-                      src={comment?.user?.profilePhoto}
-                      alt=""
-                    />
+                    <Link to={`/profile/${comment?.user?._id}`}>
+                      <img
+                        className="h-6 w-6 rounded-full"
+                        src={comment?.user?.profilePhoto}
+                        alt=""
+                      />
+                    </Link>
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-sm font-medium text-green-400">
-                          {comment?.user?.firstName} {comment?.user?.lastName}
-                        </h3>
+                        <Link to={`/profile/${comment?.user?._id}`}>
+                          <h3 className="text-sm font-medium text-green-400">
+                            {comment?.user?.firstName} {comment?.user?.lastName}
+                          </h3>
+                        </Link>
                         <p className="text-bold text-yellow-500 text-base ml-5">
                           {moment(comment?.createdAt).fromNow()}
                         </p>
