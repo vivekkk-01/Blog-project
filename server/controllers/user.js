@@ -86,7 +86,17 @@ exports.getUser = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId).populate("posts")
+        if (req.params.userId.toString() !== req.user._id.toString()) {
+            const user = await User.findById(req.params.userId).populate("posts viewedBy")
+            if (user.viewedBy.find(user => user._id.toString() === req.user._id.toString())) {
+                return res.json(user)
+            } else {
+                user.viewedBy.push(req.user._id)
+                await user.save()
+                return res.json(user)
+            }
+        }
+        const user = await User.findById(req.params.userId).populate("posts viewedBy")
         return res.json(user)
     } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")

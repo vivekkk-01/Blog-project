@@ -148,7 +148,7 @@ const Profile = () => {
                             )}
                           </h1>
                           <p className="m-3 text-lg">
-                            Date Joined:
+                            Date Joined:{" "}
                             {moment(profile?.createdAt).format("DD MMM YYYY")}
                           </p>
                           <p className="text-green-400 mt-2 mb-2">
@@ -157,15 +157,17 @@ const Profile = () => {
                             {profile?.followings.length} following
                           </p>
                           {/* Who view my profile */}
-                          <div className="flex items-center  mb-2">
-                            <EyeIcon className="h-5 w-5 " />
-                            <div className="pl-2">
-                              {/* {profile?.viewedBy?.length}{" "} */}
-                              <span className="text-indigo-400 cursor-pointer hover:underline">
-                                users viewed your profile
-                              </span>
+                          {profile?._id === userAuth?.id && (
+                            <div className="flex items-center  mb-2">
+                              <EyeIcon className="h-5 w-5 " />
+                              <div className="pl-2">
+                                {/* {profile?.viewedBy?.length}{" "} */}
+                                <span className="text-indigo-400 cursor-pointer">
+                                  Number of viewers: {profile?.viewedBy?.length}
+                                </span>
+                              </div>
                             </div>
-                          </div>
+                          )}
 
                           {/* is login user */}
                           {/* Upload profile photo */}
@@ -274,68 +276,85 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className="flex justify-center place-items-start flex-wrap  md:mb-0">
-                  <div className="w-full md:w-1/3 px-4 mb-4 md:mb-0">
-                    <h1 className="text-center text-xl border-gray-500 mb-2 border-b-2">
-                      Who viewed my profile : 9
-                    </h1>
+                  {profile?._id === userAuth?.id && (
+                    <div className="w-full md:w-1/3 px-4 mb-4 md:mb-0">
+                      <h1 className="text-center text-xl border-gray-500 mb-2 border-b-2">
+                        Who viewed my profile : {profile?.viewedBy?.length}
+                      </h1>
 
-                    {/* Who view my post */}
-                    <ul className="">
-                      <Link>
-                        <div className="flex mb-2 items-center space-x-4 lg:space-x-6">
-                          <img
-                            className="w-16 h-16 rounded-full lg:w-20 lg:h-20"
-                            src={profile?.profilePhoto}
-                            alt={profile?._id}
-                          />
-                          <div className="font-medium text-lg leading-6 space-y-1">
-                            <h3>
-                              {profile?.firstName} {profile?.lastName}
-                            </h3>
-                            <p className="text-indigo-600">
-                              {/* {user.accountType} */} Account Type
-                            </p>
-                          </div>
-                        </div>
-                      </Link>
-                    </ul>
-                  </div>
+                      {/* Who view my post */}
+                      <ul className="">
+                        {profile?.viewedBy?.length <= 0 ? (
+                          <h1></h1>
+                        ) : (
+                          profile?.viewedBy?.map((user) => (
+                            <Link to={`/profile/${user?._id}`}>
+                              <div className="flex mb-2 items-center space-x-4 lg:space-x-6">
+                                <img
+                                  className="w-16 h-16 rounded-full lg:w-20 lg:h-20"
+                                  src={user?.profilePhoto}
+                                  alt={user?._id}
+                                />
+                                <div className="font-medium text-lg leading-6 space-y-1">
+                                  <h3>
+                                    {user?.firstName} {user?.lastName}
+                                  </h3>
+                                </div>
+                              </div>
+                            </Link>
+                          ))
+                        )}
+                      </ul>
+                    </div>
+                  )}
                   {/* All my Post */}
                   <div className="w-full md:w-2/3 px-4 mb-4 md:mb-0">
                     <h1 className="text-center text-xl border-gray-500 mb-2 border-b-2">
-                      My Post
+                      {profile?._id === userAuth?.id
+                        ? "My Posts"
+                        : `${profile?.firstName}'s Posts`}
                     </h1>
                     {/* Loo here */}
-                    {profile?.posts?.map((post) => (
-                      <div
-                        key={post._id}
-                        className="flex flex-wrap  -mx-3 mt-3  lg:mb-6"
-                      >
-                        <div className="mb-2   w-full lg:w-1/4 px-3">
-                          <Link>
-                            <img
-                              className="object-cover h-40 rounded"
-                              src={post?.image}
-                              alt="poster"
-                            />
-                          </Link>
+                    {profile?._id === userAuth?.id &&
+                    profile?.posts?.length <= 0 ? (
+                      <h1 className="text-center mt-6 font-semibold text-3xl">
+                        You have 0 Posts!
+                      </h1>
+                    ) : profile?._id !== userAuth?.id &&
+                      profile?.posts?.length <= 0 ? (
+                      <h1 className="text-center mt-6 font-semibold text-3xl">{`${profile?.firstName} has 0 Posts!`}</h1>
+                    ) : (
+                      profile?.posts?.map((post) => (
+                        <div
+                          key={post._id}
+                          className="flex flex-wrap  -mx-3 mt-3  lg:mb-6"
+                        >
+                          <div className="mb-2   w-full lg:w-1/4 px-3">
+                            <Link>
+                              <img
+                                className="object-cover h-40 rounded"
+                                src={post?.image}
+                                alt="poster"
+                              />
+                            </Link>
+                          </div>
+                          <div className="w-full lg:w-3/4 px-3">
+                            <h3 className="mb-1 text-2xl text-green-600 font-bold font-heading">
+                              {post?.title}
+                            </h3>
+                            <p className="text-gray-600 truncate">
+                              {post?.description}
+                            </p>
+                            <Link
+                              className="text-indigo-500 hover:underline"
+                              to={`/posts/${post?._id}`}
+                            >
+                              Read more
+                            </Link>
+                          </div>
                         </div>
-                        <div className="w-full lg:w-3/4 px-3">
-                          <h3 className="mb-1 text-2xl text-green-600 font-bold font-heading">
-                            {post?.title}
-                          </h3>
-                          <p className="text-gray-600 truncate">
-                            {post?.description}
-                          </p>
-                          <Link
-                            className="text-indigo-500 hover:underline"
-                            to={`/posts/${post?._id}`}
-                          >
-                            Read more
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                 </div>
               </article>
