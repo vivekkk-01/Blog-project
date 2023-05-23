@@ -31,6 +31,7 @@ import UpdateProfile, {
   loader as updateProfileLoader,
 } from "./pages/UpdateProfile";
 import SendEmail, { loader as sendEmailLoader } from "./pages/SendEmail";
+import AccountVerification from "./pages/AccountVerification";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,7 @@ const router = createBrowserRouter([
         loader: updateProfileLoader,
       },
       { path: "send-mail", element: <SendEmail />, loader: sendEmailLoader },
+      { path: "verify-account/:token", element: <AccountVerification /> },
     ],
   },
 ]);

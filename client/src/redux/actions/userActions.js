@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent } from '../slices/userSlices'
+import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification } from '../slices/userSlices'
 const baseUrl = "http://localhost:5000/api/users"
 
 export const registerUserAction = (userData) => async (dispatch) => {
@@ -86,7 +86,7 @@ export const fetchUserDetails = (userId) => async (dispatch) => {
     }
 }
 
-export const getUseAction = () => async (dispatch) => {
+export const getUserAction = () => async (dispatch) => {
     const { id } = JSON.parse(localStorage.getItem("userInfo"))
     try {
         const { data } = await axios.get(`${baseUrl}/${id}`)
@@ -132,7 +132,6 @@ export const userUnfollowAction = (unfollowId) => async (dispatch) => {
 export const userMailSendingAction = (mailData) => async (dispatch) => {
     dispatch(setLoading())
     const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-    console.log(mailData)
     try {
         await axios.post(`http://localhost:5000/api/email-message`, mailData
             , {
@@ -141,6 +140,38 @@ export const userMailSendingAction = (mailData) => async (dispatch) => {
                 }
             })
         dispatch(setMailSent())
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const generateVerificationTokenAction = () => async (dispatch) => {
+    dispatch(setGenVerifiedTokenLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        await axios.get(`${baseUrl}/generate-verification-token`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(genVerifiedToken())
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setGenVerifiedTokenError(err))
+    }
+}
+
+export const accountVerficationAction = (token) => async (dispatch) => {
+    dispatch(setLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        const { data } = await axios.post(`${baseUrl}/verify-user`, { token }, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setUserVerification(data.isAccountVerified))
     } catch (error) {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
         dispatch(setError(err))

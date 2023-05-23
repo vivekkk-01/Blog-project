@@ -9,7 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { MailIcon, EyeIcon } from "@heroicons/react/solid";
 import {
-  getUseAction,
+  getUserAction,
   resetProfileAction,
   userFollowAction,
   userProfileAction,
@@ -62,7 +62,7 @@ const Profile = () => {
   }, [isUpdateProfile]);
 
   useEffect(() => {
-    dispatch(getUseAction());
+    dispatch(getUserAction());
   }, [profileId]);
 
   useEffect(() => {

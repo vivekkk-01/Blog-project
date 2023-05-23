@@ -13,6 +13,10 @@ const initialState = {
     followLoading: false,
     followError: false,
     isMailSent: false,
+    isGenVerifiedToken: false,
+    genVerifiedTokenError: null,
+    genVerifiedTokenLoading: false,
+    isVerified: false
 }
 
 const userSlice = createSlice({
@@ -90,11 +94,30 @@ const userSlice = createSlice({
             state.isMailSent = true;
             state.error = null;
         },
+        setGenVerifiedTokenLoading: (state) => {
+            state.genVerifiedTokenLoading = true;
+        },
+        genVerifiedToken: (state) => {
+            state.genVerifiedTokenLoading = false;
+            state.isGenVerifiedToken = true;
+            state.genVerifiedTokenError = null
+        },
+        setGenVerifiedTokenError: (state, { payload }) => {
+            state.genVerifiedTokenLoading = false;
+            state.genVerifiedTokenError = payload;
+        },
+        setUserVerification: (state, { payload }) => {
+            state.loading = false;
+            state.error = null;
+            state.isVerified = payload;
+        },
         resetProfile: (state) => {
             state.loading = false;
             state.isProfilePhoto = false;
             state.isMailSent = false;
             state.isUpdateProfile = false;
+            state.isGenVerifiedToken = false;
+            state.genVerifiedTokenError = null;
         },
         setLogout: (state) => {
             state.loading = false;
@@ -109,5 +132,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setUser, setProfilePhoto, setUpdateProfile, getUserDetails, setFollowError, setFollowLoading, setFollowUser, setUnfollowUser, setMailSent, resetProfile } = userSlice.actions;
+export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setUser, setProfilePhoto, setUpdateProfile, getUserDetails, setFollowError, setFollowLoading, setFollowUser, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, resetProfile } = userSlice.actions;
 export default userSlice.reducer;

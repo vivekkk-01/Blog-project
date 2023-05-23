@@ -48,6 +48,7 @@ exports.userLogin = async (req, res) => {
             lastName: user.lastName,
             isAdmin: user.isAdmin,
             email: user.email,
+            isAccountVerified: user.isAccountVerified,
             profilePhoto: user.profilePhoto,
             token: generateToken(user._id)
         })
@@ -208,11 +209,11 @@ exports.generateVerificationToken = async (req, res) => {
         const user = await User.findById(req.user._id)
         const verificationToken = await user.createVerificationToken()
         await user.save()
-        const emailUrl = `If you requested to verify your account, verify now within 10 minutes, otherwise the token will expire. <a href="http://localhost:3000/verify-account/${verificationToken}">Verify account</a>`
+        const emailUrl = `If you requested to verify your account, verify now within 10 minutes, otherwise the token will expire. <a href="http://127.0.0.1:5173/verify-account/${verificationToken}">Verify account</a>`
         const msg = {
             from: "chimnanivivek14@gmail.com",
             to: user.email,
-            subject: "Hey!",
+            subject: "Verify your account!",
             html: emailUrl
         }
 
