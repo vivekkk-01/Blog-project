@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UsersListHeader from "../components/UsersListHeader";
 import UsersListItem from "../components/UsersListItem";
 import { fetchUsersAction } from "../redux/actions/userActions";
 import { redirect, useNavigate } from "react-router-dom";
