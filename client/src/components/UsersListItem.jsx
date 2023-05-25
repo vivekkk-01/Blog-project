@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MailIcon } from "@heroicons/react/solid";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  blockUserAction,
+  unblockUserAction,
+} from "../redux/actions/userActions";
 
 const UsersListItem = ({ user }) => {
+  const { blockedUsers, blockLoading } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const blockUserHandler = () => {
+    dispatch(blockUserAction(user._id));
+  };
+
+  const unblockUserHandler = () => {
+    dispatch(unblockUserAction(user._id));
+  };
+
   return (
     <>
       <div className="p-8 mb-4 bg-white shadow rounded">
@@ -22,7 +39,10 @@ const UsersListItem = ({ user }) => {
           </div>
           <div className="w-1/2 lg:w-2/12 px-4 mb-6 lg:mb-0">
             <p className="py-1 px-2 text-xs text-purple-500 bg-purple-50 rounded-full">
-              <span>{user?.isBlocked && "Blocked"}</span>
+              <span>
+                {blockedUsers.find((blockedUser) => blockedUser === user._id) &&
+                  "Blocked"}
+              </span>
             </p>
           </div>
           <div className="w-1/2 lg:w-2/12 px-4 mb-6 lg:mb-0">
@@ -46,16 +66,18 @@ const UsersListItem = ({ user }) => {
               Profile
             </Link>
 
-            {user?.isBlocked ? (
+            {blockedUsers.find((blockedUser) => blockedUser === user._id) ? (
               <button
-                // onClick={() => dispatch(unBlockUserAction(user?.user?._id))}
+                disabled={blockLoading}
+                onClick={unblockUserHandler}
                 className="inline-block py-1 px-2 text-center bg-gray-500 text-gray-300 mr-2 mb-1 lg:mb-0 text-xs border rounded"
               >
-                unblock
+                Unblock
               </button>
             ) : (
               <button
-                // onClick={() => dispatch(blockUserAction(user?.user?._id))}
+                disabled={blockLoading}
+                onClick={blockUserHandler}
                 className="inline-block py-1 px-2 text-center bg-red-600 text-gray-300 mr-2 mb-1 lg:mb-0 text-xs border rounded"
               >
                 Block

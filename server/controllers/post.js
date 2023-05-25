@@ -9,7 +9,7 @@ exports.createPost = async (req, res) => {
         const filter = new Filter()
         const isProfane = filter.isProfane(req.body.title, req.body.description)
         if (isProfane) {
-            await User.findByIdAndUpdate(req.body.user, {
+            await User.findByIdAndUpdate(req.user._id, {
                 isBlocked: true
             })
             return res.status(400).json("Creating post failed because your post contains profane words. Also, you've been blocked by the platform.")

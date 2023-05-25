@@ -24,12 +24,9 @@ const Post = () => {
     (state) => state.post
   );
   const { userAuth } = useSelector((state) => state.user);
-  const {
-    commentCreated,
-    comments,
-    commentDeleted,
-    error: commentsError,
-  } = useSelector((state) => state.comment);
+  const { commentCreated, comments, commentDeleted } = useSelector(
+    (state) => state.comment
+  );
 
   useEffect(() => {
     if (!userAuth) {
@@ -154,17 +151,9 @@ const Post = () => {
           </div>
           {/* Add comment Form component here */}
           <AddComment postId={post?._id} />
-          {commentsError ? (
-            <div>
-              <h1 className="text-center my-4 text-4xl text-red-600">
-                {commentsError}
-              </h1>
-            </div>
-          ) : (
-            <div className="flex justify-center items-center">
-              <CommentsList comments={comments} postId={post?._id} />
-            </div>
-          )}
+          <div className="flex justify-center items-center">
+            <CommentsList comments={comments} postId={post?._id} />
+          </div>
         </section>
       )}
       <ToastContainer />

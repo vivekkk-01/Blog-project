@@ -5,12 +5,12 @@ import UsersListItem from "../components/UsersListItem";
 import { fetchUsersAction } from "../redux/actions/userActions";
 import { redirect, useNavigate } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core";
+import { ToastContainer, toast } from "react-toastify";
 
 const UsersList = () => {
   const dispatch = useDispatch();
-  const { userAuth, users, loading, error } = useSelector(
-    (state) => state.user
-  );
+  const { userAuth, users, loading, error, blockError, blockLoading } =
+    useSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +22,12 @@ const UsersList = () => {
       navigate("/login");
     }
   }, [userAuth]);
+
+  useEffect(() => {
+    if (blockError && blockLoading === false) {
+      toast.error(blockError);
+    }
+  }, [blockError, blockLoading]);
 
   return (
     <>
@@ -55,6 +61,7 @@ const UsersList = () => {
           </div>
         )}
       </section>
+      <ToastContainer />
     </>
   );
 };
@@ -62,9 +69,11 @@ const UsersList = () => {
 export default UsersList;
 
 export const loader = () => {
-  const userAuth = localStorage.getItem("userInfo");
-  if (!userAuth && !userAuth?.isAdmin) {
+  const userAuth = JSON.parse(localStorage.getItem("userInfo"));
+  if (!userAuth) {
     return redirect("/login");
+  } else if (userAuth && !userAuth.isAdmin) {
+    return redirect("/");
   }
   return null;
 };

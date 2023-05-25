@@ -5,6 +5,7 @@ const { body } = require("express-validator")
 const userControllers = require('../controllers/user')
 const verifyToken = require("../middlewares/token/verifyToken")
 const { photoUpload, profilePhotoResize } = require("../middlewares/upload/photoUpload")
+const isBlockedUser = require("../middlewares/isBlockedUser")
 
 routes.post("/register", [
     body("firstName").trim().not().isEmpty().withMessage("First name is required."),
@@ -25,7 +26,7 @@ routes.post("/forgot-password-token", userControllers.forgotPasswordToken)
 
 routes.post("/reset-password", userControllers.resetPassword)
 
-routes.post("/profile-photo-upload", verifyToken, photoUpload.single("image"), profilePhotoResize, userControllers.uploadProfilePhoto)
+routes.post("/profile-photo-upload", verifyToken, photoUpload.single("image"), profilePhotoResize, isBlockedUser, userControllers.uploadProfilePhoto)
 
 routes.get("/:userId", userControllers.getUser)
 
@@ -41,7 +42,7 @@ routes.put("/block-user/:userId", verifyToken, userControllers.updateBlock)
 
 routes.put("/unblock-user/:userId", verifyToken, userControllers.updateUnBlock)
 
-routes.put("/:userId", verifyToken, userControllers.updateUser)
+routes.put("/:userId", verifyToken, isBlockedUser, userControllers.updateUser)
 
 routes.delete("/:userId", userControllers.deleteUser)
 

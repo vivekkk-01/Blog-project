@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers } from '../slices/userSlices'
+import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers, setBlockLoading, setBlock, setBlockError, setUnblock } from '../slices/userSlices'
 const baseUrl = "http://localhost:5000/api/users"
 
 export const registerUserAction = (userData) => async (dispatch) => {
@@ -191,6 +191,38 @@ export const fetchUsersAction = () => async (dispatch) => {
     } catch (error) {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
         dispatch(setError(err))
+    }
+}
+
+export const blockUserAction = (userId) => async (dispatch) => {
+    dispatch(setBlockLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        await axios.put(`${baseUrl}/block-user/${userId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setBlock(userId))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setBlockError(err))
+    }
+}
+
+export const unblockUserAction = (userId) => async (dispatch) => {
+    dispatch(setBlockLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        await axios.put(`${baseUrl}/unblock-user/${userId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setUnblock(userId))
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setBlockError(err))
     }
 }
 
