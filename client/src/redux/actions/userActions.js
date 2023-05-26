@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers, setBlockLoading, setBlock, setBlockError, setUnblock } from '../slices/userSlices'
+import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers, setBlockLoading, setBlock, setBlockError, setUnblock, setUpdatePassword, setForgotPassword, setResetPassword } from '../slices/userSlices'
 const baseUrl = "http://localhost:5000/api/users"
 
 export const registerUserAction = (userData) => async (dispatch) => {
@@ -223,6 +223,44 @@ export const unblockUserAction = (userId) => async (dispatch) => {
     } catch (error) {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
         dispatch(setBlockError(err))
+    }
+}
+
+export const updatePasswordAction = (values) => async (dispatch) => {
+    dispatch(setLoading())
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        await axios.put(`${baseUrl}/password`, values, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch(setUpdatePassword())
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const forgotPasswordAction = (values) => async (dispatch) => {
+    dispatch(setLoading())
+    try {
+        await axios.post(`${baseUrl}/forgot-password-token`, values)
+        dispatch(setForgotPassword())
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
+    }
+}
+
+export const resetPasswordAction = (values) => async (dispatch) => {
+    dispatch(setLoading())
+    try {
+        await axios.post(`${baseUrl}/reset-password`, values)
+        dispatch(setResetPassword())
+    } catch (error) {
+        const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        dispatch(setError(err))
     }
 }
 

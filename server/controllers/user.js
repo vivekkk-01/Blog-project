@@ -259,17 +259,18 @@ exports.userVerification = async (req, res) => {
 
 exports.forgotPasswordToken = async (req, res) => {
     try {
+        sgMail.setApiKey(process.env.SEND_GRID_API_KEY)
         const { email } = req.body;
         const user = await User.findOne({ email })
         if (!user) return res.status(401).json("User with that email address doesn't exist.")
         const token = await user.createPasswordResetToken()
         await user.save()
 
-        const resetUrl = `If you requested to reset your password, reset it now within 10 minutes, otherwise the token will expire. <a href="http://localhost:3000/verify-account/${token}">Verify account</a>`
+        const resetUrl = `If you requested to reset your password, reset it now within 10 minutes, otherwise the token will expire. <a href="http://127.0.0.1:5173/reset-password/${token}">Reset Password</a>`
         const msg = {
             from: "chimnanivivek14@gmail.com",
             to: user.email,
-            subject: "Hey!",
+            subject: "Password Reset!",
             html: resetUrl
         }
 

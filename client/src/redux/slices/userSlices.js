@@ -21,6 +21,9 @@ const initialState = {
     blockedUsers: [],
     blockLoading: false,
     blockError: null,
+    isPasswordUpdate: false,
+    isForgotPassword: false,
+    isResetPassword: false,
 }
 
 const userSlice = createSlice({
@@ -142,6 +145,21 @@ const userSlice = createSlice({
             state.blockLoading = false;
             state.blockError = payload;
         },
+        setUpdatePassword: (state) => {
+            state.loading = false;
+            state.isPasswordUpdate = true;
+            state.error = null;
+        },
+        setForgotPassword: (state) => {
+            state.loading = false;
+            state.isForgotPassword = true;
+            state.error = null;
+        },
+        setResetPassword: (state) => {
+            state.loading = false;
+            state.isResetPassword = true;
+            state.error = null;
+        },
         resetProfile: (state) => {
             state.loading = false;
             state.isProfilePhoto = false;
@@ -149,6 +167,9 @@ const userSlice = createSlice({
             state.isUpdateProfile = false;
             state.isGenVerifiedToken = false;
             state.genVerifiedTokenError = null;
+            state.isPasswordUpdate = false;
+            state.isForgotPassword = false;
+            state.isResetPassword = false;
         },
         setLogout: (state) => {
             state.loading = false;
@@ -163,5 +184,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setUser, setProfilePhoto, setUpdateProfile, getUserDetails, setFollowError, setFollowLoading, setFollowUser, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers, setBlock, setBlockError, setBlockLoading, setUnblock, resetProfile } = userSlice.actions;
+export const { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setUser, setProfilePhoto, setUpdateProfile, getUserDetails, setFollowError, setFollowLoading, setFollowUser, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers, setBlock, setBlockError, setBlockLoading, setUnblock, setUpdatePassword, setForgotPassword, setResetPassword, resetProfile } = userSlice.actions;
 export default userSlice.reducer;

@@ -3,9 +3,13 @@ import poster from "../../public/img/poster.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { loginUserAction } from "../redux/actions/userActions";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  loginUserAction,
+  resetProfileAction,
+} from "../redux/actions/userActions";
 import { CircularProgress } from "@material-ui/core";
+import { ToastContainer, toast } from "react-toastify";
 
 const formSchema = Yup.object({
   email: Yup.string()
@@ -19,7 +23,7 @@ const formSchema = Yup.object({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, loading, userAuth, login } = useSelector(
+  const { error, loading, userAuth, login, isResetPassword } = useSelector(
     (state) => state.user
   );
 
@@ -39,6 +43,13 @@ const Login = () => {
       return navigate(`/profile/${userAuth.id}`);
     }
   }, [login, userAuth]);
+
+  useEffect(() => {
+    if (isResetPassword) {
+      toast.success("Password Reset Successfully!");
+      dispatch(resetProfileAction());
+    }
+  }, [isResetPassword]);
 
   return (
     <>
@@ -151,6 +162,9 @@ const Login = () => {
                       </button>
                     )}
                   </form>
+                  <Link className="text-blue-700 mt-4" to="/forgot-password">
+                    Forgot Password?
+                  </Link>
                 </div>
               </div>
               <div className="w-full lg:w-3/5 px-4 mb-16 lg:mb-0 order-first lg:order-last">
@@ -202,6 +216,7 @@ const Login = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 };

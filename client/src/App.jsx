@@ -33,6 +33,11 @@ import UpdateProfile, {
 import SendEmail, { loader as sendEmailLoader } from "./pages/SendEmail";
 import AccountVerification from "./pages/AccountVerification";
 import UsersList, { loader as usersListLoader } from "./pages/UsersList";
+import UpdatePassword, {
+  loader as updatePasswordLoader,
+} from "./pages/UpdatePassword";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +92,13 @@ const router = createBrowserRouter([
       { path: "send-mail", element: <SendEmail />, loader: sendEmailLoader },
       { path: "verify-account/:token", element: <AccountVerification /> },
       { path: "users", element: <UsersList />, loader: usersListLoader },
+      {
+        path: "update-password",
+        element: <UpdatePassword />,
+        loader: updatePasswordLoader,
+      },
+      { path: "forgot-password", element: <ForgotPassword /> },
+      { path: "reset-password/:token", element: <ResetPassword /> },
     ],
   },
 ]);

@@ -38,6 +38,7 @@ const Profile = () => {
     followLoading,
     followError,
     isMailSent,
+    isPasswordUpdate,
   } = useSelector((state) => state.user);
   const { userAuth } = useSelector((state) => state.user);
 
@@ -71,6 +72,13 @@ const Profile = () => {
       dispatch(resetProfileAction());
     }
   }, [isMailSent]);
+
+  useEffect(() => {
+    if (isPasswordUpdate) {
+      toast.success("Password Updated Successfully!");
+      dispatch(resetProfileAction());
+    }
+  }, [isPasswordUpdate]);
 
   const followHandler = () => {
     dispatch(userFollowAction(profileId));
