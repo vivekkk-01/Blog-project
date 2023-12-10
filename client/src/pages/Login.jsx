@@ -8,7 +8,7 @@ import {
   loginUserAction,
   resetProfileAction,
 } from "../redux/actions/userActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 
 const formSchema = Yup.object({

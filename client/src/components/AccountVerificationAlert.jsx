@@ -2,7 +2,7 @@
 import { ExclamationIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { generateVerificationTokenAction } from "../redux/actions/userActions";
-import { LinearProgress } from "@material-ui/core";
+import { LinearProgress } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { resetProfile } from "../redux/slices/userSlices";

@@ -8,7 +8,7 @@ import {
   addCategoryAction,
   resetCategoryAction,
 } from "../redux/actions/categoryActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

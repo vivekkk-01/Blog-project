@@ -7,7 +7,7 @@ import {
   fetchCategoriesAction,
   resetCategoryAction,
 } from "../redux/actions/categoryActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 
 const CategoryList = () => {

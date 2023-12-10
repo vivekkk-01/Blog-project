@@ -5,7 +5,7 @@ import styled from "styled-components";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadProfilePhotoAction } from "../redux/actions/userActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import { redirect, useNavigate, useParams } from "react-router-dom";
 //Css for dropzone

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UsersListItem from "../components/UsersListItem";
 import { fetchUsersAction } from "../redux/actions/userActions";
 import { redirect, useNavigate } from "react-router-dom";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 
 const UsersList = () => {

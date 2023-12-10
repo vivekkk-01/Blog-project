@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentAction } from "../redux/actions/commentActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 //Form schema
 const formSchema = Yup.object({

@@ -8,7 +8,7 @@ import {
   updatePostAction,
 } from "../redux/actions/postActions";
 import CategoryDropdown from "../components/CategoryDropdown";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 const formSchema = Yup.object({
   title: Yup.string().required("Title is required"),

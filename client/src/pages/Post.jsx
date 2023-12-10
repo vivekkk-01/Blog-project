@@ -6,7 +6,7 @@ import {
   deletePostAction,
   fetchPostAction,
 } from "../redux/actions/postActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import moment from "moment";
 import AddComment from "../components/AddComment";
 import CommentsList from "../components/CommentsList";

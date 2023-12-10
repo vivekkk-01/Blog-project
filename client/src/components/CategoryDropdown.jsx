@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
 import Select from "react-select";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 const CategoryDropdown = (props) => {
   const dispatch = useDispatch();

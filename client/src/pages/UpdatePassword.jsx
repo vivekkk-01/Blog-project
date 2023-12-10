@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePasswordAction } from "../redux/actions/userActions";
 import { useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 //Form schema
 const formSchema = Yup.object({

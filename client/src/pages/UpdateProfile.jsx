@@ -7,7 +7,7 @@ import {
   fetchUserDetails,
   updateProfileAction,
 } from "../redux/actions/userActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 //Form schema
 const formSchema = Yup.object({

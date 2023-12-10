@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { resetPasswordAction } from "../redux/actions/userActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 //Form schema
 const formSchema = Yup.object({

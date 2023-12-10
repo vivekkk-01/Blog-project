@@ -6,7 +6,7 @@ import CategoryDropdown from "../components/CategoryDropdown";
 import { createPostAction } from "../redux/actions/postActions";
 import styled from "styled-components";
 import Dropzone from "react-dropzone";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { redirect, useNavigate } from "react-router-dom";
 
 const formSchema = Yup.object({

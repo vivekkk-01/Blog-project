@@ -16,7 +16,7 @@ import {
   userUnfollowAction,
 } from "../redux/actions/userActions";
 import moment from "moment";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 
 const Profile = () => {

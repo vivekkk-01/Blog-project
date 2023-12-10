@@ -6,7 +6,7 @@ import {
   accountVerficationAction,
   logoutUserAction,
 } from "../redux/actions/userActions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 const AccountVerification = () => {
   //dispatch

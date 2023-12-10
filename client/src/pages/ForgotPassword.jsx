@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import {
   forgotPasswordAction,
   resetProfileAction,

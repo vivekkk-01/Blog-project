@@ -15,7 +15,7 @@ import {
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import moment from "moment";
 
 const Posts = () => {
