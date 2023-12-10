@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = "http://localhost:5000/api/category"
+const baseUrl = "https://blog-backend-j4vm.onrender.com/api/category"
 import { setLoading, setError, setCategory, setCategoryList, updateCategory, deleteCategory, fetchCategory, reset } from '../slices/categorySlice'
 
 export const addCategoryAction = (title) => async (dispatch) => {

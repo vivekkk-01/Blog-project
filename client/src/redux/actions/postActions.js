@@ -1,6 +1,6 @@
 import { setLoading, setError, createPost, resetPost, setPosts, setToggleLike, setToggleDislike, setPost, updatePost, setUpdatePostLoading, setUpdatePostError, deletePost } from "../slices/postSlice";
 import axios from "axios";
-const baseUrl = "http://localhost:5000/api/posts"
+const baseUrl = "https://blog-backend-j4vm.onrender.com/api/posts"
 
 export const createPostAction = (postData) => async (dispatch) => {
     dispatch(setLoading())

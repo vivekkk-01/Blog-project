@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setLoading, setError, setRegistered, setLogin, setLogout, setProfile, setProfilePhoto, setUser, resetProfile, setUpdateProfile, getUserDetails, setFollowError, setFollowUser, setFollowLoading, setUnfollowUser, setMailSent, genVerifiedToken, setGenVerifiedTokenError, setGenVerifiedTokenLoading, setUserVerification, setUsers, setBlockLoading, setBlock, setBlockError, setUnblock, setUpdatePassword, setForgotPassword, setResetPassword } from '../slices/userSlices'
-const baseUrl = "http://localhost:5000/api/users"
+const baseUrl = "https://blog-backend-j4vm.onrender.com/api/users"
 
 export const registerUserAction = (userData) => async (dispatch) => {
     dispatch(setLoading())
@@ -133,7 +133,7 @@ export const userMailSendingAction = (mailData) => async (dispatch) => {
     dispatch(setLoading())
     const userInfo = JSON.parse(localStorage.getItem("userInfo"))
     try {
-        await axios.post(`http://localhost:5000/api/email-message`, mailData
+        await axios.post(`https://blog-backend-j4vm.onrender.com/api/email-message`, mailData
             , {
                 headers: {
                     Authorization: `Bearer ${userInfo.token}`

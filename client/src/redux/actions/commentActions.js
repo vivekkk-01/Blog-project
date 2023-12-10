@@ -1,6 +1,6 @@
 import axios from "axios"
 import { setLoading, setError, setComment, resetComment, setComments, deleteComment } from "../slices/commentSlice"
-const baseUrl = "http://localhost:5000/api/comments"
+const baseUrl = "https://blog-backend-j4vm.onrender.com/api/comments"
 
 export const createCommentAction = (postId, commentData) => async (dispatch) => {
     dispatch(setLoading())
