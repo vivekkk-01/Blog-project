@@ -9,6 +9,8 @@ import {
 } from "../redux/actions/categoryActions";
 import ClipLoader from "react-spinners/ClipLoader";
 import { ToastContainer, toast } from "react-toastify";
+import { resetUserErrorAction } from "../redux/actions/userActions";
+import { resetPostErrorAction } from "../redux/actions/postActions";
 
 const CategoryList = () => {
   const dispatch = useDispatch();
@@ -44,6 +46,11 @@ const CategoryList = () => {
       navigate("/login");
     }
   }, [userAuth]);
+
+  useEffect(() => {
+    dispatch(resetPostErrorAction())  
+    dispatch(resetUserErrorAction())
+  }, [])
 
   return (
     <>

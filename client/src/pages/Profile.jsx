@@ -11,6 +11,7 @@ import { MailIcon, EyeIcon } from "@heroicons/react/solid";
 import {
   getUserAction,
   resetProfileAction,
+  resetUserErrorAction,
   userFollowAction,
   userProfileAction,
   userUnfollowAction,
@@ -18,6 +19,7 @@ import {
 import moment from "moment";
 import { ClipLoader } from "react-spinners";
 import { toast, ToastContainer } from "react-toastify";
+import { resetPostErrorAction } from "../redux/actions/postActions";
 
 const Profile = () => {
   const { profileId } = useParams();
@@ -79,6 +81,11 @@ const Profile = () => {
       dispatch(resetProfileAction());
     }
   }, [isPasswordUpdate]);
+
+  useEffect(() => {
+    dispatch(resetPostErrorAction())  
+    dispatch(resetUserErrorAction())
+  }, [])
 
   const followHandler = () => {
     dispatch(userFollowAction(profileId));

@@ -3,11 +3,12 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import CategoryDropdown from "../components/CategoryDropdown";
-import { createPostAction } from "../redux/actions/postActions";
+import { createPostAction, resetPostErrorAction } from "../redux/actions/postActions";
 import styled from "styled-components";
 import Dropzone from "react-dropzone";
 import ClipLoader from "react-spinners/ClipLoader";
 import { redirect, useNavigate } from "react-router-dom";
+import { resetUserErrorAction } from "../redux/actions/userActions";
 
 const formSchema = Yup.object({
   title: Yup.string().required("Title is required."),
@@ -50,6 +51,11 @@ const CreatePost = () => {
       navigate("/login");
     }
   }, [userAuth]);
+
+  useEffect(() => {
+    dispatch(resetPostErrorAction())  
+    dispatch(resetUserErrorAction())
+  }, [])
 
   const formik = useFormik({
     initialValues: {

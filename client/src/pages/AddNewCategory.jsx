@@ -11,6 +11,8 @@ import {
 import ClipLoader from "react-spinners/ClipLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { resetUserErrorAction } from "../redux/actions/userActions";
+import { resetPostErrorAction } from "../redux/actions/postActions";
 
 const formSchema = Yup.object({
   title: Yup.string().required("Title is required."),
@@ -45,6 +47,11 @@ const AddNewCategory = () => {
       navigate("/category-list");
     }
   }, [newCategory]);
+
+  useEffect(() => {
+    dispatch(resetPostErrorAction())  
+    dispatch(resetUserErrorAction())
+  }, [])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

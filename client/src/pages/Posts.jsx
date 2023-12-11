@@ -11,12 +11,15 @@ import {
   fetchAllPostsAction,
   toggleLikePostAction,
   toggleDislikePostAction,
+  resetPostErrorAction,
 } from "../redux/actions/postActions";
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
+import { resetUserError } from "../redux/slices/userSlices";
+import { resetUserErrorAction } from "../redux/actions/userActions";
 
 const Posts = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -61,6 +64,12 @@ const Posts = () => {
     setSelectedCategory("");
     dispatch(fetchCategoriesAction());
   }, []);
+
+  useEffect(() => {
+    dispatch(resetPostErrorAction())  
+    dispatch(resetUserErrorAction())
+  }, [])
+  
 
   const toggleLikeHandler = (postId) => {
     if (!userAuth) {
@@ -115,7 +124,11 @@ const Posts = () => {
                   <ul>
                     {categoryLoading ? (
                       <h2>
-                        <ClipLoader loading={categoryLoading} size={40} color="#fff" />
+                        <ClipLoader
+                          loading={categoryLoading}
+                          size={40}
+                          color="#fff"
+                        />
                       </h2>
                     ) : categoryError ? (
                       <div className="text-red-400 text-base">

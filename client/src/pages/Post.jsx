@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deletePostAction,
   fetchPostAction,
+  resetPostErrorAction,
 } from "../redux/actions/postActions";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
@@ -15,6 +16,7 @@ import {
   getCommentsAction,
   resetCommentAction,
 } from "../redux/actions/commentActions";
+import { resetUserErrorAction } from "../redux/actions/userActions";
 
 const Post = () => {
   const { postId } = useParams();
@@ -59,6 +61,11 @@ const Post = () => {
     }
     dispatch(getCommentsAction(postId));
   }, [commentCreated, commentDeleted]);
+
+  useEffect(() => {
+    dispatch(resetPostErrorAction())  
+    dispatch(resetUserErrorAction())
+  }, [])
 
   return (
     <>

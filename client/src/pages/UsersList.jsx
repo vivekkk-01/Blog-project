@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UsersListItem from "../components/UsersListItem";
-import { fetchUsersAction } from "../redux/actions/userActions";
+import { fetchUsersAction, resetUserErrorAction } from "../redux/actions/userActions";
 import { redirect, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
+import { resetPostErrorAction } from "../redux/actions/postActions";
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,11 @@ const UsersList = () => {
       toast.error(blockError);
     }
   }, [blockError, blockLoading]);
+
+  useEffect(() => {
+    dispatch(resetPostErrorAction())  
+    dispatch(resetUserErrorAction())
+  }, [])
 
   return (
     <>

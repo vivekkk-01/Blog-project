@@ -11,6 +11,7 @@ import {
   setUpdatePostLoading,
   setUpdatePostError,
   deletePost,
+  resetError,
 } from "../slices/postSlice";
 import axios from "axios";
 const baseUrl = "https://blog-backend-j4vm.onrender.com/api/posts";
@@ -163,4 +164,8 @@ export const toggleDislikePostAction = (postId) => async (dispatch) => {
 
 export const resetPostAction = () => (dispatch) => {
   dispatch(resetPost());
+};
+
+export const resetPostErrorAction = () => (dispatch) => {
+  dispatch(resetError());
 };
