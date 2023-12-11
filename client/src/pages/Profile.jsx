@@ -100,7 +100,7 @@ const Profile = () => {
             zIndex: 19,
           }}
         >
-           <ClipLoader loading={loading} size={50} color="#fff" />
+           <ClipLoader loading={loading} size={70} color="#000" />
         </div>
       ) : error ? (
         <div
@@ -296,7 +296,7 @@ const Profile = () => {
                           <h1></h1>
                         ) : (
                           profile?.viewedBy?.map((user) => (
-                            <Link to={`/profile/${user?._id}`}>
+                            <Link key={user?._id} to={`/profile/${user?._id}`}>
                               <div className="flex mb-2 items-center space-x-4 lg:space-x-6">
                                 <img
                                   className="w-16 h-16 rounded-full lg:w-20 lg:h-20"

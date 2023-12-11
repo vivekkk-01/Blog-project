@@ -30,7 +30,7 @@ const UsersList = () => {
 
   return (
     <>
-      <section class="py-8 bg-gray-900 min-h-screen">
+      <section className="py-8 bg-gray-900 min-h-screen">
         {loading ? (
           <div
             style={{
@@ -40,7 +40,7 @@ const UsersList = () => {
               zIndex: 19,
             }}
           >
-             <ClipLoader loading={loading} size={50} color="#fff" />
+            <ClipLoader loading={loading} size={70} color="#fff" />
           </div>
         ) : error ? (
           <div className="flex-col justify-center align-center text-center">
@@ -53,9 +53,9 @@ const UsersList = () => {
             </h1>
           </div>
         ) : (
-          <div class="container px-4 mx-auto">
+          <div className="container px-4 mx-auto">
             {users?.map((user) => (
-              <UsersListItem user={user} />
+              <UsersListItem key={user?._id} user={user} />
             ))}
           </div>
         )}

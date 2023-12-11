@@ -1,4 +1,4 @@
-import poster from "../../public/img/poster.png";
+import poster from "/img/poster.png";
 
 const Home = () => {
   return (
@@ -17,12 +17,6 @@ const Home = () => {
               <p className="mb-12 lg:mb-16 2xl:mb-24 text-xl text-gray-100">
                 Your post must be free from racism and unhealthy words
               </p>
-              <a
-                className="inline-block px-12 py-5 text-lg text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full transition duration-200"
-                href="/"
-              >
-                Buy This Course
-              </a>
             </div>
             <div className="w-full lg:w-1/2 px-4">
               <img className="w-full" src={poster} alt={poster} />

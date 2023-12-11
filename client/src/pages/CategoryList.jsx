@@ -56,7 +56,7 @@ const CategoryList = () => {
             height: "80vh",
           }}
         >
-          <ClipLoader loading={loading} size={50} color="#fff" />
+          <ClipLoader loading={loading} size={70} color="#000" />
         </div>
       ) : error ? (
         <div

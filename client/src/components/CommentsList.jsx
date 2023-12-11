@@ -26,8 +26,8 @@ const CommentsList = ({ comments }) => {
             <h1 className="text-yellow-400 text-lg text-center">No comments</h1>
           ) : (
             comments?.map((comment) => (
-              <>
-                <li key={comment._id} className="py-4  w-full">
+              <div key={comment._id}>
+                <li className="py-4  w-full">
                   <div className="flex space-x-3">
                     <Link to={`/profile/${comment?.user?._id}`}>
                       <img
@@ -70,7 +70,7 @@ const CommentsList = ({ comments }) => {
                     </div>
                   </div>
                 </li>
-              </>
+              </div>
             ))
           )}
         </>

@@ -115,7 +115,7 @@ const Posts = () => {
                   <ul>
                     {categoryLoading ? (
                       <h2>
-                        <ClipLoader loading={categoryLoading} size={30} color="#fff" />
+                        <ClipLoader loading={categoryLoading} size={40} color="#fff" />
                       </h2>
                     ) : categoryError ? (
                       <div className="text-red-400 text-base">
@@ -157,7 +157,7 @@ const Posts = () => {
                       zIndex: 19,
                     }}
                   >
-                    <ClipLoader loading={loading} size={50} color="#fff" />
+                    <ClipLoader loading={loading} size={60} color="#fff" />
                   </div>
                 ) : error ? (
                   <div

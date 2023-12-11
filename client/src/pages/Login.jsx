@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   loginUserAction,
+  logoutUserAction,
   resetProfileAction,
 } from "../redux/actions/userActions";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -41,6 +42,9 @@ const Login = () => {
   useEffect(() => {
     if (userAuth || login) {
       return navigate(`/profile/${userAuth.id}`);
+    }
+    if(!userAuth && !login) {
+      dispatch(logoutUserAction());
     }
   }, [login, userAuth]);
 
@@ -101,7 +105,7 @@ const Login = () => {
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                        className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-400 rounded-r-full focus:outline-none"
                         type="email"
                         placeholder="Enter your Email"
                       />
@@ -136,7 +140,7 @@ const Login = () => {
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                        className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-400 rounded-r-full focus:outline-none"
                         type="password"
                         placeholder="Enter your Password"
                       />
@@ -151,7 +155,7 @@ const Login = () => {
                         type="submit"
                         className="py-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full transition duration-200"
                       >
-                        <ClipLoader loading={loading} size={15} color="#fff" />
+                        <ClipLoader loading={loading} size={20} color="#fff" />
                       </button>
                     ) : (
                       <button
@@ -176,7 +180,7 @@ const Login = () => {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <g clip-path="url(#clip0)">
+                    <g clipPath="url(#clip0)">
                       <path
                         d="M36.2292 29.2917H0.770833C0.345333 29.2917 0 28.9463 0 28.5208C0 28.0953 0.345333 27.75 0.770833 27.75H36.2292C36.6547 27.75 37 28.0953 37 28.5208C37 28.9463 36.6547 29.2917 36.2292 29.2917Z"
                         fill="white"

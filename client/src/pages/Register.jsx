@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUserAction } from "../redux/actions/userActions";
+import {
+  logoutUserAction,
+  registerUserAction,
+} from "../redux/actions/userActions";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
@@ -43,6 +46,8 @@ const Register = () => {
     if (registered) {
       return navigate("/login");
     }
+    console.log("let's see...");
+    dispatch(logoutUserAction());
   }, [registered]);
 
   return (
@@ -112,7 +117,7 @@ const Register = () => {
                       value={formik.values.firstName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-r-full focus:outline-none"
                       type="text"
                       placeholder="First Name"
                     />
@@ -166,7 +171,7 @@ const Register = () => {
                       value={formik.values.lastName}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-r-full focus:outline-none"
                       type="text"
                       placeholder="Last Name"
                     />
@@ -219,7 +224,7 @@ const Register = () => {
                       value={formik.values.email}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-r-full focus:outline-none"
                       type="email"
                       placeholder="example@gmail.com"
                     />
@@ -252,7 +257,7 @@ const Register = () => {
                       value={formik.values.password}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
+                      className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-r-full focus:outline-none"
                       type="password"
                       placeholder="Password"
                     />

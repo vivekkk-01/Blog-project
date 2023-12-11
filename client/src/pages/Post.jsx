@@ -78,7 +78,7 @@ const Post = () => {
               zIndex: 19,
             }}
           >
-            <ClipLoader loading={loading} size={50} color="#fff" />
+            <ClipLoader loading={loading} size={70} color="#fff" />
           </div>
         </div>
       ) : error ? (
