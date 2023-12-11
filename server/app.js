@@ -7,7 +7,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: ["localhost:5173", "https://myblog-5o78.onrender.com"],
+    origin: ["http://localhost:5173", "https://myblog-5o78.onrender.com"],
   })
 );
 app.use(express.json());
