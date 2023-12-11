@@ -6,7 +6,7 @@ import {
   deletePostAction,
   fetchPostAction,
 } from "../redux/actions/postActions";
-import { CircularProgress } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 import moment from "moment";
 import AddComment from "../components/AddComment";
 import CommentsList from "../components/CommentsList";
@@ -78,7 +78,7 @@ const Post = () => {
               zIndex: 19,
             }}
           >
-            <CircularProgress size="100px" color="primary" />
+            <ClipLoader loading={loading} size={50} color="#fff" />
           </div>
         </div>
       ) : error ? (

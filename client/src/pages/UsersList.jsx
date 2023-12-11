@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UsersListItem from "../components/UsersListItem";
 import { fetchUsersAction } from "../redux/actions/userActions";
 import { redirect, useNavigate } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 
 const UsersList = () => {
@@ -40,7 +40,7 @@ const UsersList = () => {
               zIndex: 19,
             }}
           >
-            <CircularProgress size="100px" color="primary" />
+             <ClipLoader loading={loading} size={50} color="#fff" />
           </div>
         ) : error ? (
           <div className="flex-col justify-center align-center text-center">

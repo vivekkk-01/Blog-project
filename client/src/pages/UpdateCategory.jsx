@@ -14,7 +14,7 @@ import {
   resetCategoryAction,
   updateCategoryAction,
 } from "../redux/actions/categoryActions";
-import { CircularProgress } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -125,7 +125,7 @@ const UpdateCategory = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  <CircularProgress size="19px" color="white" />
+                   <ClipLoader loading={loading} size={15} color="#fff" />
                 </button>
               ) : (
                 <>

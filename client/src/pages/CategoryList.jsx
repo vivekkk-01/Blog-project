@@ -7,7 +7,7 @@ import {
   fetchCategoriesAction,
   resetCategoryAction,
 } from "../redux/actions/categoryActions";
-import { CircularProgress } from "@mui/material";
+import ClipLoader from "react-spinners/ClipLoader";
 import { ToastContainer, toast } from "react-toastify";
 
 const CategoryList = () => {
@@ -56,7 +56,7 @@ const CategoryList = () => {
             height: "80vh",
           }}
         >
-          <CircularProgress size="100px" color="primary" />
+          <ClipLoader loading={loading} size={50} color="#fff" />
         </div>
       ) : error ? (
         <div

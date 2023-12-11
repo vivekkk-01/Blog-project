@@ -15,7 +15,7 @@ import {
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 import moment from "moment";
 
 const Posts = () => {
@@ -115,7 +115,7 @@ const Posts = () => {
                   <ul>
                     {categoryLoading ? (
                       <h2>
-                        <CircularProgress size="40px" />
+                        <ClipLoader loading={categoryLoading} size={30} color="#fff" />
                       </h2>
                     ) : categoryError ? (
                       <div className="text-red-400 text-base">
@@ -157,7 +157,7 @@ const Posts = () => {
                       zIndex: 19,
                     }}
                   >
-                    <CircularProgress size="100px" color="primary" />
+                    <ClipLoader loading={loading} size={50} color="#fff" />
                   </div>
                 ) : error ? (
                   <div

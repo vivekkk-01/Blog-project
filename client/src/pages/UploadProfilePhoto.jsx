@@ -5,7 +5,7 @@ import styled from "styled-components";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadProfilePhotoAction } from "../redux/actions/userActions";
-import { CircularProgress } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 import { useEffect } from "react";
 import { redirect, useNavigate, useParams } from "react-router-dom";
 //Css for dropzone
@@ -114,7 +114,7 @@ const UploadProfilePhoto = () => {
                   type="submit"
                   className="inline-flex justify-center w-full px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                 >
-                  <CircularProgress size="19px" style={{ color: "#ccc" }} />
+                   <ClipLoader loading={loading} size={15} color="#ccc" />
                 </button>
               ) : (
                 <button

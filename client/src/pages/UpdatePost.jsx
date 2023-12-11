@@ -8,7 +8,7 @@ import {
   updatePostAction,
 } from "../redux/actions/postActions";
 import CategoryDropdown from "../components/CategoryDropdown";
-import { CircularProgress } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 
 const formSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -68,7 +68,7 @@ const UpdatePost = () => {
             zIndex: 19,
           }}
         >
-          <CircularProgress size="100px" color="primary" />
+          <ClipLoader loading={loading} size={50} color="#fff" />
         </div>
       ) : error ? (
         <div
@@ -167,7 +167,7 @@ const UpdatePost = () => {
                       type="submit"
                       className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                      <CircularProgress size="19px" color="white" />
+                      <ClipLoader loading={updatePostLoading} size={15} color="#fff" />
                     </button>
                   ) : (
                     <button

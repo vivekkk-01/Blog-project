@@ -16,7 +16,7 @@ import {
   userUnfollowAction,
 } from "../redux/actions/userActions";
 import moment from "moment";
-import { CircularProgress } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 import { toast, ToastContainer } from "react-toastify";
 
 const Profile = () => {
@@ -100,7 +100,7 @@ const Profile = () => {
             zIndex: 19,
           }}
         >
-          <CircularProgress size="100px" color="primary" />
+           <ClipLoader loading={loading} size={50} color="#fff" />
         </div>
       ) : error ? (
         <div

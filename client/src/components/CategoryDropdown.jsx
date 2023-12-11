@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
 import Select from "react-select";
-import { CircularProgress } from "@mui/material";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const CategoryDropdown = (props) => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const CategoryDropdown = (props) => {
     <div className="my-2">
       {loading ? (
         <h2>
-          <CircularProgress size="40px" />
+          <ClipLoader loading={loading} size={30} color="#fff" />
         </h2>
       ) : error ? (
         <h1 className="text-red-500">{error}</h1>

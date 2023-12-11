@@ -6,7 +6,7 @@ import {
   accountVerficationAction,
   logoutUserAction,
 } from "../redux/actions/userActions";
-import { CircularProgress } from "@mui/material";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const AccountVerification = () => {
   //dispatch
@@ -50,7 +50,7 @@ const AccountVerification = () => {
               zIndex: 19,
             }}
           ></div>
-          <CircularProgress size="100px" color="primary" />
+          <ClipLoader loading={loading} size={50} color="#fff" />
         </div>
       ) : error ? (
         <div

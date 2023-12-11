@@ -14,11 +14,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "react-spinners": "^0.13.8",
     "@emotion/react": "^11.11.1",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^1.0.6",
-    "@mui/icons-material": "^5.14.18",
-    "@mui/material": "^5.14.18",
     "@reduxjs/toolkit": "^1.9.5",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
