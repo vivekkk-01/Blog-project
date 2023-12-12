@@ -36,11 +36,16 @@ const profilePhotoResize = async (req, res, next) => {
       console.log("Data:-", data);
     }
   );
-  // fs.writeFile(path.join(`public/images/profile`), req.file.buffer, (err) => {
-  //   if (err) {
-  //     next(err);
-  //   }
-  // });
+  fs.writeFile(
+    path.join(`public/images/profile`),
+    req.file.buffer,
+    "utf-8",
+    (err) => {
+      if (err) {
+        next(err);
+      }
+    }
+  );
   next();
 };
 
