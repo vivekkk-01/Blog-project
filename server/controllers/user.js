@@ -357,6 +357,7 @@ exports.uploadProfilePhoto = async (req, res, next) => {
   try {
     const localPath = `public/images/profile/${req.file.filename}`;
     const { secure_url } = await cloudinary.v2.uploader.upload(localPath);
+    console.log(secure_url, "user profile picture.");
     const user = await User.findByIdAndUpdate(
       req.user._id,
       {
