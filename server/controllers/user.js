@@ -355,20 +355,19 @@ exports.resetPassword = async (req, res) => {
 exports.uploadProfilePhoto = async (req, res, next) => {
   try {
     const localPath = `public/images/profile/${req.file.filename}`;
-    const cloudinaryImage = await cloudinaryUploadImg(localPath);
+    const { secure_url } = await cloudinary.v2.uploader.upload(localPath);
     const user = await User.findByIdAndUpdate(
       req.user._id,
       {
-        profilePhoto: cloudinaryImage.url,
+        profilePhoto: secure_url,
       },
       { new: true }
     );
-    console.log("Let's see...", req.file.filename, localPath, user);
-    // fs.unlink(localPath, (err) => {
-    //   if (err) {
-    //     return next(err);
-    //   }
-    // });
+    fs.unlink(localPath, (err) => {
+      if (err) {
+        return next(err);
+      }
+    });
     res.json(user);
   } catch (error) {
     return res.status(500).json("Something went wrong, please try again!");
