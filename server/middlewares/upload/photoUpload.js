@@ -27,16 +27,19 @@ const photoUpload = multer({
 const profilePhotoResize = async (req, res, next) => {
   if (!req.file) return res.json("Upload a file, please.");
   req.file.filename = `user-${Date.now()}-${req.file.originalname}`;
-  console.log(req.file.filename, "Filename");
-  fs.writeFile(
-    path.join(`public/images/profile`),
-    req.file.buffer,
-    (err) => {
-      if (err) {
-        next(err);
-      }
+  fs.readFile(
+    path.join("public/images/profile/test.txt"),
+    "utf-8",
+    (err, data) => {
+      if (err) console.log(err);
+      console.log("Data:-", data);
     }
   );
+  fs.writeFile(path.join(`public/images/profile`), req.file.buffer, (err) => {
+    if (err) {
+      next(err);
+    }
+  });
   next();
 };
 
