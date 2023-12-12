@@ -6,6 +6,7 @@ const sgMail = require("@sendgrid/mail");
 const generateToken = require("../middlewares/token/generateToken");
 const cloudinaryUploadImg = require("../utils/cloudinary");
 const fs = require("fs");
+const cloudinary = require("cloudinary");
 
 exports.userRegister = async (req, res) => {
   try {
