@@ -29,7 +29,7 @@ const profilePhotoResize = async (req, res, next) => {
   req.file.filename = `user-${Date.now()}-${req.file.originalname}`;
   console.log(req.file.filename, "Filename");
   fs.writeFile(
-    path.join(`/images/profile/${req.file.filename}`),
+    path.join(`public/images/profile`),
     req.file.buffer,
     (err) => {
       if (err) {
