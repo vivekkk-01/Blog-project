@@ -25,6 +25,7 @@ app.use("/api/email-message", emailMsgRoutes);
 app.use("/api/category", categoryRoutes);
 
 app.use((err, req, res, next) => {
+  console.log("Error occurred...");
   const message = err.message || "Something went wrong, please try again!";
   const statusCode = err.statusCode || 500;
   return res.status(statusCode).json(message);
