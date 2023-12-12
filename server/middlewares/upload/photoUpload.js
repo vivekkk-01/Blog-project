@@ -31,7 +31,8 @@ const profilePhotoResize = async (req, res, next) => {
     path.join("public/images/profile/test.txt"),
     "utf-8",
     (err, data) => {
-      if (err) console.log(err);
+      console.log("Checking...")
+      if (err) console.log("Error:-", err);
       console.log("Data:-", data);
     }
   );
