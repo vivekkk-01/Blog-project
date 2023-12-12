@@ -355,7 +355,6 @@ exports.resetPassword = async (req, res) => {
 exports.uploadProfilePhoto = async (req, res, next) => {
   try {
     const localPath = `public/images/profile/${req.file.filename}`;
-    console.log("Let's see...", req.file.filename, localPath);
     const cloudinaryImage = await cloudinaryUploadImg(localPath);
     const user = await User.findByIdAndUpdate(
       req.user._id,
@@ -364,6 +363,7 @@ exports.uploadProfilePhoto = async (req, res, next) => {
       },
       { new: true }
     );
+    console.log("Let's see...", req.file.filename, localPath, user);
     // fs.unlink(localPath, (err) => {
     //   if (err) {
     //     return next(err);
