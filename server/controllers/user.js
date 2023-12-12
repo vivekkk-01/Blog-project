@@ -364,11 +364,11 @@ exports.uploadProfilePhoto = async (req, res, next) => {
       },
       { new: true }
     );
-    fs.unlink(localPath, (err) => {
-      if (err) {
-        return next(err);
-      }
-    });
+    // fs.unlink(localPath, (err) => {
+    //   if (err) {
+    //     return next(err);
+    //   }
+    // });
     res.json(user);
   } catch (error) {
     return res.status(500).json("Something went wrong, please try again!");
