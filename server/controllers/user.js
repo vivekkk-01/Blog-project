@@ -356,7 +356,6 @@ exports.resetPassword = async (req, res) => {
 exports.uploadProfilePhoto = async (req, res, next) => {
   try {
     const localPath = `public/images/profile/${req.file.filename}`;
-    console.log("Local Path:-", localPath);
     const { secure_url } = await cloudinary.v2.uploader.upload(localPath);
     const user = await User.findByIdAndUpdate(
       req.user._id,
