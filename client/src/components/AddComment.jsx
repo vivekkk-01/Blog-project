@@ -25,6 +25,7 @@ const AddComment = ({ postId }) => {
       };
       resetForm(initialValues);
       dispatch(createCommentAction(postId, data));
+      formik.setTouched({ description: false });
     },
   });
 
