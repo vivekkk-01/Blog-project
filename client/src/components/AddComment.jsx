@@ -19,13 +19,14 @@ const AddComment = ({ postId }) => {
   const formik = useFormik({
     initialValues,
     validationSchema: formSchema,
-    onSubmit: (values, { setSubmitting, resetForm }) => {
+    onSubmit: (values, { resetForm, setTouched }) => {
+      setTouched({ description: true });
       const data = {
         description: values?.description,
       };
+      setTouched({ description: false });
       resetForm(initialValues);
       dispatch(createCommentAction(postId, data));
-      formik.setTouched({ description: false });
     },
   });
 
