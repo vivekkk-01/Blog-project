@@ -56,11 +56,28 @@ const profilePhotoResize = async (req, res, next) => {
 const postPhotoResize = async (req, res, next) => {
   if (!req.file) return next();
   req.file.filename = `post-${Date.now()}-${req.file.originalname}`;
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat("jpeg")
-    .jpeg({ quality: 90 })
-    .toFile(path.join(`public/images/posts/${req.file.filename}`));
+  const directoryPath = "public/images/posts";
+
+  // Create the directory if it doesn't exist
+  if (!fs.existsSync(directoryPath)) {
+    try {
+      fs.mkdirSync(directoryPath, { recursive: true });
+      console.log(`Directory created: ${directoryPath}`);
+    } catch (error) {
+      console.error("Error creating directory:", error.message);
+    }
+  }
+
+  fs.writeFile(
+    path.join(directoryPath, req.file.filename),
+    req.file.buffer,
+    (err) => {
+      if (err) {
+        console.error("Error writing file:", err);
+        return next(err);
+      }
+    }
+  );
   next();
 };
 
