@@ -27,7 +27,7 @@ const photoUpload = multer({
 const profilePhotoResize = async (req, res, next) => {
   if (!req.file) return res.json("Upload a file, please.");
   req.file.filename = `user-${Date.now()}-${req.file.originalname}`;
-  const directoryPath = "public/images/profile";
+  const directoryPath = "../../public/images/profile";
 
   // Log to check if the directory exists
   console.log("Does the directory exist?", fs.existsSync(directoryPath));
