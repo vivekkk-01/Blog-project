@@ -1,5 +1,5 @@
 import axios from "axios"
-import { setLoading, setError, setComment, resetComment, setComments, deleteComment } from "../slices/commentSlice"
+import { setLoading, setError, setComment, resetComment, setComments, deleteComment, setDeleteCommentError } from "../slices/commentSlice"
 const baseUrl = "https://blog-backend-j4vm.onrender.com/api/comments"
 
 export const createCommentAction = (postId, commentData) => async (dispatch) => {
@@ -46,7 +46,7 @@ export const deleteCommentAction = (commentId) => async (dispatch) => {
         dispatch(deleteComment())
     } catch (error) {
         const err = error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
-        dispatch(setError(err))
+        dispatch(setDeleteCommentError(err))
     }
 }
 
