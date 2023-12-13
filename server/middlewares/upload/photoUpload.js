@@ -31,7 +31,7 @@ const profilePhotoResize = async (req, res, next) => {
   const currentModulePath = __dirname;
   const profileDirectoryPath = path.resolve(
     currentModulePath,
-    "../../public/images/profile"
+    "public/images/profile"
   );
 
   fs.writeFile(
