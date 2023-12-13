@@ -30,7 +30,6 @@ const profilePhotoResize = async (req, res, next) => {
   fs.writeFile(
     path.join(`public/images/profile/${req.file.filename}`),
     req.file.buffer,
-    "utf-8",
     (err) => {
       if (err) {
         console.log("Error:-", err);
