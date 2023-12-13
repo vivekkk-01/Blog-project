@@ -25,10 +25,8 @@ app.use("/api/email-message", emailMsgRoutes);
 app.use("/api/category", categoryRoutes);
 
 app.use((err, req, res, next) => {
-  console.log("Error occurred...");
-  const message = err.message || "Something went wrong, please try again!";
-  const statusCode = err.statusCode || 500;
-  return res.status(statusCode).json(message);
+  console.log("Error occurred...", err.message);
+  return res.status(500).json("Something went wrong, please try again!");
 });
 
 app.listen(PORT, async () => {
