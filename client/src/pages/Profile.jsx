@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, redirect, useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import {
   HeartIcon,
   EmojiSadIcon,
@@ -83,9 +84,9 @@ const Profile = () => {
   }, [isPasswordUpdate]);
 
   useEffect(() => {
-    dispatch(resetPostErrorAction())  
-    dispatch(resetUserErrorAction())
-  }, [])
+    dispatch(resetPostErrorAction());
+    dispatch(resetUserErrorAction());
+  }, []);
 
   const followHandler = () => {
     dispatch(userFollowAction(profileId));
@@ -97,6 +98,9 @@ const Profile = () => {
 
   return (
     <div className="h-screen flex overflow-hidden bg-white">
+      <Helmet>
+        <link rel="icon" href="img/home.ico" type="image/x-icon" />
+      </Helmet>
       {/* Static sidebar for desktop */}
       {loading ? (
         <div
@@ -107,7 +111,7 @@ const Profile = () => {
             zIndex: 19,
           }}
         >
-           <ClipLoader loading={loading} size={70} color="#000" />
+          <ClipLoader loading={loading} size={70} color="#000" />
         </div>
       ) : error ? (
         <div
