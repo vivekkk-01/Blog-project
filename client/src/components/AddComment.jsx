@@ -23,8 +23,8 @@ const AddComment = ({ postId }) => {
       const data = {
         description: values?.description,
       };
-      dispatch(createCommentAction(postId, data));
       resetForm(initialValues);
+      dispatch(createCommentAction(postId, data));
     },
   });
 
