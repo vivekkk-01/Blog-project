@@ -33,7 +33,8 @@ const profilePhotoResize = async (req, res, next) => {
     "utf-8",
     (err) => {
       if (err) {
-        next(err);
+        console.log("Error:-", err);
+        return next(err);
       }
     }
   );
