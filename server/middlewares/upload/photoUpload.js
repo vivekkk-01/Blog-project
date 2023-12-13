@@ -27,16 +27,19 @@ const photoUpload = multer({
 const profilePhotoResize = async (req, res, next) => {
   if (!req.file) return res.json("Upload a file, please.");
   req.file.filename = `user-${Date.now()}-${req.file.originalname}`;
-  const directoryPath = "../../public/images/profile";
 
-  // Log to check if the directory exists
-  console.log("Does the directory exist?", fs.existsSync(directoryPath));
+  const currentModulePath = __dirname;
+  const profileDirectoryPath = path.resolve(
+    currentModulePath,
+    "../../public/images/profile"
+  );
+
   fs.writeFile(
-    path.join(directoryPath, req.file.filename),
+    path.join(profileDirectoryPath, req.file.filename),
     req.file.buffer,
     (err) => {
       if (err) {
-        console.log("Error:-", err);
+        console.error("Error writing file:", err);
         return next(err);
       }
     }
