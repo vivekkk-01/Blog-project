@@ -28,14 +28,20 @@ const profilePhotoResize = async (req, res, next) => {
   if (!req.file) return res.json("Upload a file, please.");
   req.file.filename = `user-${Date.now()}-${req.file.originalname}`;
 
-  const currentModulePath = __dirname;
-  const profileDirectoryPath = path.resolve(
-    currentModulePath,
-    "public/images/profile"
-  );
+  const directoryPath = "public/images/profile";
+
+  // Create the directory if it doesn't exist
+  if (!fs.existsSync(directoryPath)) {
+    try {
+      fs.mkdirSync(directoryPath, { recursive: true });
+      console.log(`Directory created: ${directoryPath}`);
+    } catch (error) {
+      console.error("Error creating directory:", error.message);
+    }
+  }
 
   fs.writeFile(
-    path.join(profileDirectoryPath, req.file.filename),
+    path.join(directoryPath, req.file.filename),
     req.file.buffer,
     (err) => {
       if (err) {
