@@ -27,6 +27,7 @@ const AddComment = ({ postId }) => {
       };
       resetForm(initialValues);
       dispatch(createCommentAction(postId, data));
+      setIsSubmitted(false);
     },
   });
 
@@ -40,10 +41,7 @@ const AddComment = ({ postId }) => {
         className="mt-1 flex max-w-sm m-auto"
       >
         <input
-          onBlur={() => {
-            setIsSubmitted(false);
-            formik.handleBlur("description");
-          }}
+          onBlur={formik.handleBlur("description")}
           value={formik.values.description}
           onChange={formik.handleChange("description")}
           type="text"
