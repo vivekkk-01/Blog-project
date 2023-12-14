@@ -21,12 +21,16 @@ const AddComment = ({ postId }) => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: (values, { resetForm, setTouched }) => {
-      setIsSubmitted(true);
+      if (!values?.description) {
+        setIsSubmitted(false);
+        return;
+      }
       const data = {
         description: values?.description,
       };
       resetForm(initialValues);
       dispatch(createCommentAction(postId, data));
+      setIsSubmitted(true);
     },
   });
 
@@ -40,10 +44,7 @@ const AddComment = ({ postId }) => {
         className="mt-1 flex max-w-sm m-auto"
       >
         <input
-          onBlur={(() => {
-            setIsSubmitted(false);
-            formik.handleBlur("description");
-          })()}
+          onBlur={formik.handleBlur("description")}
           value={formik.values.description}
           onChange={formik.handleChange("description")}
           type="text"

@@ -365,7 +365,6 @@ exports.uploadProfilePhoto = async (req, res, next) => {
       { new: true }
     );
     fs.unlink(localPath, (err) => {
-      console.log("Error:-", err);
       if (err) {
         return next(err);
       }

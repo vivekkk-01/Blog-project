@@ -34,7 +34,6 @@ const profilePhotoResize = async (req, res, next) => {
   if (!fs.existsSync(directoryPath)) {
     try {
       fs.mkdirSync(directoryPath, { recursive: true });
-      console.log(`Directory created: ${directoryPath}`);
     } catch (error) {
       console.error("Error creating directory:", error.message);
     }
@@ -62,7 +61,6 @@ const postPhotoResize = async (req, res, next) => {
   if (!fs.existsSync(directoryPath)) {
     try {
       fs.mkdirSync(directoryPath, { recursive: true });
-      console.log(`Directory created: ${directoryPath}`);
     } catch (error) {
       console.error("Error creating directory:", error.message);
     }

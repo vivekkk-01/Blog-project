@@ -46,7 +46,6 @@ const Register = () => {
     if (registered) {
       return navigate("/login");
     }
-    console.log("let's see...");
     dispatch(logoutUserAction());
   }, [registered]);
 

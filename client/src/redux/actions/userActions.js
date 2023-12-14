@@ -100,7 +100,6 @@ export const uploadProfilePhotoAction = (profilePhoto) => async (dispatch) => {
     );
     dispatch(setProfilePhoto(data));
   } catch (error) {
-    console.log(error, "Le't see...");
     const err = error.response
       ? error.response.data
       : error.message
