@@ -40,7 +40,10 @@ const AddComment = ({ postId }) => {
         className="mt-1 flex max-w-sm m-auto"
       >
         <input
-          onBlur={formik.handleBlur("description")}
+          onBlur={() => {
+            setIsSubmitted(false);
+            formik.handleBlur("description");
+          }}
           value={formik.values.description}
           onChange={formik.handleChange("description")}
           type="text"
