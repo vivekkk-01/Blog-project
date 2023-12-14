@@ -41,13 +41,13 @@ const AddComment = ({ postId }) => {
       >
         <input
           onBlur={() => {
-            formik.handleBlur("description");
             setIsSubmitted(false);
+            formik.handleBlur("description");
           }}
           value={formik.values.description}
           onChange={() => {
-            formik.handleChange("description");
             setIsSubmitted(false);
+            formik.handleChange("description");
           }}
           type="text"
           name="text"
