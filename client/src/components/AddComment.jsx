@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ const formSchema = Yup.object({
 });
 
 const AddComment = ({ postId }) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { loading, error } = useSelector((state) => state.comment);
   const initialValues = {
     description: "",
@@ -20,14 +21,12 @@ const AddComment = ({ postId }) => {
     initialValues,
     validationSchema: formSchema,
     onSubmit: (values, { resetForm, setTouched }) => {
-      setTouched({ description: true });
+      setIsSubmitted(true);
       const data = {
         description: values?.description,
       };
-      // setTouched({ description: false });
       resetForm(initialValues);
       dispatch(createCommentAction(postId, data));
-      // formik.touched.description = false;
     },
   });
 
@@ -68,9 +67,11 @@ const AddComment = ({ postId }) => {
           </button>
         )}
       </form>
-      <div className="text-red-400 mb-2 mt-2">
-        {formik.touched.description && formik.errors.description}
-      </div>
+      {!isSubmitted && (
+        <div className="text-red-400 mb-2 mt-2">
+          {formik.touched.description && formik.errors.description}
+        </div>
+      )}
     </div>
   );
 };
