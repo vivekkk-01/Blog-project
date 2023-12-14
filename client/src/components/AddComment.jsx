@@ -24,10 +24,10 @@ const AddComment = ({ postId }) => {
       const data = {
         description: values?.description,
       };
-      setTouched({ description: false });
+      // setTouched({ description: false });
       resetForm(initialValues);
       dispatch(createCommentAction(postId, data));
-      formik.touched.description = false;
+      // formik.touched.description = false;
     },
   });
 
