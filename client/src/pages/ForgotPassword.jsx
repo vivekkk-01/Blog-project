@@ -10,6 +10,7 @@ import {
 } from "../redux/actions/userActions";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 //Form schema
 const formSchema = Yup.object({
@@ -18,6 +19,7 @@ const formSchema = Yup.object({
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const { userAuth, login } = useSelector((state) => state.user);
 
@@ -47,6 +49,12 @@ const ForgotPassword = () => {
   useEffect(() => {
     if (!userAuth && !login) {
       dispatch(resetUserErrorAction());
+    }
+  }, [userAuth, login]);
+
+  useEffect(() => {
+    if (!userAuth || !login) {
+      return navigate("/");
     }
   }, [userAuth, login]);
 

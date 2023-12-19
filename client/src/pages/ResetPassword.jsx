@@ -54,6 +54,12 @@ const ResetPassword = () => {
   }, [isResetPassword]);
 
   useEffect(() => {
+    if (!userAuth || !login) {
+      return navigate("/");
+    }
+  }, [userAuth, login]);
+
+  useEffect(() => {
     if (!userAuth && !login) {
       dispatch(loginUserAction());
     }
