@@ -43,7 +43,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <Home />,
+    errorElement: <Root />,
     children: [
       { index: true, element: <Home /> },
       { path: "register", element: <Register /> },
