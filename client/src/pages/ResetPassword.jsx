@@ -4,7 +4,10 @@ import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import { resetPasswordAction } from "../redux/actions/userActions";
+import {
+  loginUserAction,
+  resetPasswordAction,
+} from "../redux/actions/userActions";
 import { ClipLoader } from "react-spinners";
 
 //Form schema
@@ -15,6 +18,7 @@ const formSchema = Yup.object({
 const ResetPassword = () => {
   const { token } = useParams();
   const navigate = useNavigate();
+  const { login, userAuth } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   //formik
@@ -48,6 +52,12 @@ const ResetPassword = () => {
       navigate("/login");
     }
   }, [isResetPassword]);
+
+  useEffect(() => {
+    if (!userAuth && !login) {
+      dispatch(loginUserAction());
+    }
+  }, [userAuth, login]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8">
