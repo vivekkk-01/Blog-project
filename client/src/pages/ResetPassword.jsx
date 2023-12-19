@@ -60,7 +60,7 @@ const ResetPassword = () => {
   }, [userAuth, login]);
 
   useEffect(() => {
-    if (!userAuth && !login) {
+    if (userAuth && login) {
       dispatch(loginUserAction());
     }
   }, [userAuth, login]);

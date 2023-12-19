@@ -53,7 +53,7 @@ const ForgotPassword = () => {
   }, [userAuth, login]);
 
   useEffect(() => {
-    if (!userAuth || !login) {
+    if (userAuth || login) {
       return navigate("/");
     }
   }, [userAuth, login]);
