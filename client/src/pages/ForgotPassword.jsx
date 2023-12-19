@@ -6,6 +6,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import {
   forgotPasswordAction,
   resetProfileAction,
+  resetUserErrorAction,
 } from "../redux/actions/userActions";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,6 +18,9 @@ const formSchema = Yup.object({
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
+
+  const { userAuth, login } = useSelector((state) => state.user);
+
   //formik
   const formik = useFormik({
     initialValues: {
@@ -39,6 +43,12 @@ const ForgotPassword = () => {
       dispatch(resetProfileAction());
     }
   }, [isForgotPassword]);
+
+  useEffect(() => {
+    if (!userAuth && !login) {
+      dispatch(resetUserErrorAction());
+    }
+  }, [userAuth, login]);
 
   //select data from store
   return (
