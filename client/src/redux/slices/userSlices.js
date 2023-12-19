@@ -56,8 +56,8 @@ const userSlice = createSlice({
       state.error = null;
       const user = JSON.parse(localStorage.getItem("myBlogUser"));
       user.profilePhoto = payload.profilePhoto;
-      localStorage.removeItem("userInfo");
-      localStorage.setItem("userInfo", JSON.stringify(user));
+      localStorage.removeItem("myBlogUser");
+      localStorage.setItem("myBlogUser", JSON.stringify(user));
       state.userAuth = user;
     },
     setUpdateProfile: (state, { payload }) => {
@@ -68,8 +68,8 @@ const userSlice = createSlice({
       user.firstName = payload.firstName;
       user.lastName = payload.lastName;
       user.email = payload.email;
-      localStorage.removeItem("userInfo");
-      localStorage.setItem("userInfo", JSON.stringify(user));
+      localStorage.removeItem("myBlogUser");
+      localStorage.setItem("myBlogUser", JSON.stringify(user));
       state.userAuth = user;
     },
     getUserDetails: (state, { payload }) => {

@@ -51,7 +51,7 @@ export const loginUserAction = (userData) => async (dispatch) => {
   dispatch(setLoading());
   try {
     const { data } = await axios.post(`${baseUrl}/login`, userData);
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem("myBlogUser", JSON.stringify(data));
     dispatch(setLogin(data));
   } catch (error) {
     const err = error.response
@@ -398,7 +398,7 @@ export const resetProfileAction = () => (dispatch) => {
 };
 
 export const logoutUserAction = () => (dispatch) => {
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem("myBlogUser");
   dispatch(setLogout());
 };
 
