@@ -263,7 +263,7 @@ exports.generateVerificationToken = async (req, res) => {
     const user = await User.findById(req.user._id);
     const verificationToken = await user.createVerificationToken();
     await user.save();
-    const emailUrl = `If you requested to verify your account, verify now within 10 minutes, otherwise the token will expire. <a href="http://localhost:5173/verify-account/${verificationToken}">Verify account</a>`;
+    const emailUrl = `If you requested to verify your account, verify now within 10 minutes, otherwise the token will expire. <a href="https://myblog-5o78.onrender.com/verify-account/${verificationToken}">Verify account</a>`;
     const msg = {
       from: "chimnanivivek14@gmail.com",
       to: user.email,
@@ -312,7 +312,7 @@ exports.forgotPasswordToken = async (req, res) => {
     const token = await user.createPasswordResetToken();
     await user.save();
 
-    const resetUrl = `If you requested to reset your password, reset it now within 10 minutes, otherwise the token will expire. <a href="http://localhost:5173/reset-password/${token}">Reset Password</a>`;
+    const resetUrl = `If you requested to reset your password, reset it now within 10 minutes, otherwise the token will expire. <a href="https://myblog-5o78.onrender.com/reset-password/${token}">Reset Password</a>`;
     const msg = {
       from: "chimnanivivek14@gmail.com",
       to: user.email,
