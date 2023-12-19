@@ -190,7 +190,7 @@ const UpdatePost = () => {
 export default UpdatePost;
 
 export const loader = () => {
-  const userAuth = localStorage.getItem("userInfo");
+  const userAuth = localStorage.getItem("myBlogUser");
   if (!userAuth) {
     return redirect("/login");
   }

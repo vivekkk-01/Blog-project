@@ -228,7 +228,7 @@ const CreatePost = () => {
 export default CreatePost;
 
 export const loader = () => {
-  const userAuth = localStorage.getItem("userInfo");
+  const userAuth = localStorage.getItem("myBlogUser");
   if (!userAuth) {
     return redirect("/login");
   }

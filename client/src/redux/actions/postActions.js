@@ -18,7 +18,7 @@ const baseUrl = "https://blog-backend-j4vm.onrender.com/api/posts";
 
 export const createPostAction = (postData) => async (dispatch) => {
   dispatch(setLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     const formData = new FormData();
     formData.append("title", postData.title);
@@ -43,7 +43,7 @@ export const createPostAction = (postData) => async (dispatch) => {
 
 export const updatePostAction = (postData, postId) => async (dispatch) => {
   dispatch(setUpdatePostLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     await axios.put(`${baseUrl}/${postId}`, postData, {
       headers: {
@@ -63,7 +63,7 @@ export const updatePostAction = (postData, postId) => async (dispatch) => {
 
 export const deletePostAction = (postId) => async (dispatch) => {
   dispatch(setLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     await axios.delete(`${baseUrl}/${postId}`, {
       headers: {
@@ -117,7 +117,7 @@ export const fetchPostAction = (postId) => async (dispatch) => {
 };
 
 export const toggleLikePostAction = (postId) => async (dispatch) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     dispatch(setToggleLike({ postId, userId: userInfo.id }));
     await axios.put(
@@ -140,7 +140,7 @@ export const toggleLikePostAction = (postId) => async (dispatch) => {
 };
 
 export const toggleDislikePostAction = (postId) => async (dispatch) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     dispatch(setToggleDislike({ postId, userId: userInfo.id }));
     await axios.put(

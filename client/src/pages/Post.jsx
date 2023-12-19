@@ -171,7 +171,7 @@ const Post = () => {
 export default Post;
 
 export const loader = () => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   if (!userInfo) {
     return redirect("/login");
   }

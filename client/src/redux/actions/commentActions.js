@@ -4,7 +4,7 @@ const baseUrl = "https://blog-backend-j4vm.onrender.com/api/comments"
 
 export const createCommentAction = (postId, commentData) => async (dispatch) => {
     dispatch(setLoading())
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    const userInfo = JSON.parse(localStorage.getItem("myBlogUser"))
     try {
         await axios.post(`${baseUrl}/${postId}`, commentData, {
             headers: {
@@ -20,7 +20,7 @@ export const createCommentAction = (postId, commentData) => async (dispatch) => 
 
 export const getCommentsAction = (postId) => async (dispatch) => {
     dispatch(setLoading())
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    const userInfo = JSON.parse(localStorage.getItem("myBlogUser"))
     try {
         const { data } = await axios.get(`${baseUrl}/${postId}`, {
             headers: {
@@ -36,7 +36,7 @@ export const getCommentsAction = (postId) => async (dispatch) => {
 
 export const deleteCommentAction = (commentId) => async (dispatch) => {
     dispatch(setLoading())
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+    const userInfo = JSON.parse(localStorage.getItem("myBlogUser"))
     try {
         await axios.delete(`${baseUrl}/${commentId}`, {
             headers: {

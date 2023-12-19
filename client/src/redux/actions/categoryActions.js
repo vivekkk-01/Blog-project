@@ -4,7 +4,7 @@ import { setLoading, setError, setCategory, setCategoryList, updateCategory, del
 
 export const addCategoryAction = (title) => async (dispatch) => {
     dispatch(setLoading())
-    const userAuth = JSON.parse(localStorage.getItem("userInfo"))
+    const userAuth = JSON.parse(localStorage.getItem("myBlogUser"))
     try {
         await axios.post(baseUrl, { title }, {
             headers: {
@@ -31,7 +31,7 @@ export const fetchCategoriesAction = () => async (dispatch) => {
 
 export const updateCategoryAction = (categoryId, title) => async (dispatch) => {
     dispatch(setLoading())
-    const userAuth = JSON.parse(localStorage.getItem("userInfo"))
+    const userAuth = JSON.parse(localStorage.getItem("myBlogUser"))
     try {
         await axios.put(`${baseUrl}/${categoryId}`, { title }, {
             headers: {
@@ -47,7 +47,7 @@ export const updateCategoryAction = (categoryId, title) => async (dispatch) => {
 
 export const deleteCategoryAction = (categoryId) => async (dispatch) => {
     dispatch(setLoading())
-    const userAuth = JSON.parse(localStorage.getItem("userInfo"))
+    const userAuth = JSON.parse(localStorage.getItem("myBlogUser"))
     try {
         await axios.delete(`${baseUrl}/${categoryId}`, {
             headers: {
@@ -63,7 +63,7 @@ export const deleteCategoryAction = (categoryId) => async (dispatch) => {
 
 export const fetchCategoryAction = (categoryId) => async (dispatch) => {
     dispatch(setLoading())
-    const userAuth = JSON.parse(localStorage.getItem("userInfo"))
+    const userAuth = JSON.parse(localStorage.getItem("myBlogUser"))
     try {
         const { data } = await axios.get(`${baseUrl}/${categoryId}`, {
             headers: {

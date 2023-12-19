@@ -74,7 +74,7 @@ const UsersList = () => {
 export default UsersList;
 
 export const loader = () => {
-  const userAuth = JSON.parse(localStorage.getItem("userInfo"));
+  const userAuth = JSON.parse(localStorage.getItem("myBlogUser"));
   if (!userAuth) {
     return redirect("/login");
   } else if (userAuth && !userAuth.isAdmin) {

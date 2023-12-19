@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   error: null,
-  userAuth: localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo"))
+  userAuth: localStorage.getItem("myBlogUser")
+    ? JSON.parse(localStorage.getItem("myBlogUser"))
     : null,
   profile: null,
   userDetails: null,
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.isProfilePhoto = true;
       state.error = null;
-      const user = JSON.parse(localStorage.getItem("userInfo"));
+      const user = JSON.parse(localStorage.getItem("myBlogUser"));
       user.profilePhoto = payload.profilePhoto;
       localStorage.removeItem("userInfo");
       localStorage.setItem("userInfo", JSON.stringify(user));
@@ -64,7 +64,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.isUpdateProfile = true;
       state.error = null;
-      const user = JSON.parse(localStorage.getItem("userInfo"));
+      const user = JSON.parse(localStorage.getItem("myBlogUser"));
       user.firstName = payload.firstName;
       user.lastName = payload.lastName;
       user.email = payload.email;

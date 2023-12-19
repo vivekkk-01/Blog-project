@@ -165,7 +165,7 @@ const CategoryList = () => {
 export default CategoryList;
 
 export const loader = () => {
-  const userAuth = localStorage.getItem("userInfo");
+  const userAuth = localStorage.getItem("myBlogUser");
   if (!userAuth && !userAuth?.isAdmin) {
     return redirect("/login");
   }

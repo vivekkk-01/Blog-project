@@ -64,7 +64,7 @@ export const loginUserAction = (userData) => async (dispatch) => {
 };
 
 export const userProfileAction = (profileId) => async (dispatch) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   dispatch(setLoading());
   try {
     const { data } = await axios.get(`${baseUrl}/profile/${profileId}`, {
@@ -84,7 +84,7 @@ export const userProfileAction = (profileId) => async (dispatch) => {
 };
 
 export const uploadProfilePhotoAction = (profilePhoto) => async (dispatch) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   dispatch(setLoading());
   const formData = new FormData();
   formData.append("image", profilePhoto);
@@ -110,7 +110,7 @@ export const uploadProfilePhotoAction = (profilePhoto) => async (dispatch) => {
 };
 
 export const updateProfileAction = (profileData) => async (dispatch) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   dispatch(setLoading());
   try {
     const { data } = await axios.put(`${baseUrl}/${userInfo.id}`, profileData, {
@@ -145,7 +145,7 @@ export const fetchUserDetails = (userId) => async (dispatch) => {
 };
 
 export const getUserAction = () => async (dispatch) => {
-  const { id } = JSON.parse(localStorage.getItem("userInfo"));
+  const { id } = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     const { data } = await axios.get(`${baseUrl}/${id}`);
     dispatch(setUser(data));
@@ -161,7 +161,7 @@ export const getUserAction = () => async (dispatch) => {
 
 export const userFollowAction = (followId) => async (dispatch) => {
   dispatch(setFollowLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     const { data } = await axios.put(
       `${baseUrl}/follow`,
@@ -185,7 +185,7 @@ export const userFollowAction = (followId) => async (dispatch) => {
 
 export const userUnfollowAction = (unfollowId) => async (dispatch) => {
   dispatch(setFollowLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     const { data } = await axios.put(
       `${baseUrl}/unfollow`,
@@ -209,7 +209,7 @@ export const userUnfollowAction = (unfollowId) => async (dispatch) => {
 
 export const userMailSendingAction = (mailData) => async (dispatch) => {
   dispatch(setLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     await axios.post(
       `https://blog-backend-j4vm.onrender.com/api/email-message`,
@@ -233,7 +233,7 @@ export const userMailSendingAction = (mailData) => async (dispatch) => {
 
 export const generateVerificationTokenAction = () => async (dispatch) => {
   dispatch(setGenVerifiedTokenLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     await axios.get(`${baseUrl}/generate-verification-token`, {
       headers: {
@@ -253,7 +253,7 @@ export const generateVerificationTokenAction = () => async (dispatch) => {
 
 export const accountVerficationAction = (token) => async (dispatch) => {
   dispatch(setLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     const { data } = await axios.post(
       `${baseUrl}/verify-user`,
@@ -277,7 +277,7 @@ export const accountVerficationAction = (token) => async (dispatch) => {
 
 export const fetchUsersAction = () => async (dispatch) => {
   dispatch(setLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     const { data } = await axios.get(`${baseUrl}/`, {
       headers: {
@@ -297,7 +297,7 @@ export const fetchUsersAction = () => async (dispatch) => {
 
 export const blockUserAction = (userId) => async (dispatch) => {
   dispatch(setBlockLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     await axios.put(
       `${baseUrl}/block-user/${userId}`,
@@ -321,7 +321,7 @@ export const blockUserAction = (userId) => async (dispatch) => {
 
 export const unblockUserAction = (userId) => async (dispatch) => {
   dispatch(setBlockLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     await axios.put(
       `${baseUrl}/unblock-user/${userId}`,
@@ -345,7 +345,7 @@ export const unblockUserAction = (userId) => async (dispatch) => {
 
 export const updatePasswordAction = (values) => async (dispatch) => {
   dispatch(setLoading());
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
     await axios.put(`${baseUrl}/password`, values, {
       headers: {
