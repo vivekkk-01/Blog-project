@@ -103,7 +103,7 @@ const Profile = () => {
   };
 
   const deleteAccountHandler = () => {
-    dispatch(resetDeleteErrorAction())
+    dispatch(resetDeleteErrorAction());
     setIsDeleteAccountModal(!isDeleteAccountModal);
   };
 
@@ -277,7 +277,7 @@ const Profile = () => {
                               </Link>
                               <button
                                 onClick={deleteAccountHandler}
-                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-red-700 hover:bg-gray-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ml-3"
+                                className="inline-flex justify-center px-4 py-2 mt-3 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-red-700 hover:bg-gray-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ml-3"
                                 disabled={deleteLoading}
                               >
                                 {!deleteLoading && (
@@ -295,12 +295,14 @@ const Profile = () => {
                                 )}
                               </button>
                               {deleteError && (
-                                <h3 className="absolute right-0 mt-3 text-red-600 font-semibold">
-                                  Error Deleting your Account. Try Again Later!
-                                </h3>
+                                <div className="absolute right-0 h-12">
+                                  <h3 className="text-red-600 font-semibold">
+                                    Error occurred. Try Again Later!
+                                  </h3>
+                                </div>
                               )}
                               {isDeleteAccountModal && (
-                                <div className="absolute right-0 mt-3 shadow-lg shadow-zinc-400 px-4 py-2 rounded-md border border-zinc-300">
+                                <div className="absolute z-50 bg-white right-0 mt-3 shadow-lg shadow-zinc-400 px-4 py-2 rounded-md border border-zinc-300">
                                   <h3>
                                     Do you want to{" "}
                                     <span className="text-red-600 font-semibold">

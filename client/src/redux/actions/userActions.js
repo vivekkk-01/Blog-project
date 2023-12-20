@@ -414,7 +414,7 @@ export const deleteUserAction = () => async (dispatch) => {
   dispatch(setDeleteLoading());
   const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
   try {
-    await axios.delete(`${baseUrl}/${userInfo.id}`, {
+    await axios.delete(`${baseUrl}/delete/${userInfo.id}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
