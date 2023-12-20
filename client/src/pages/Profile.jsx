@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, redirect, useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {
@@ -6,6 +6,7 @@ import {
   EmojiSadIcon,
   UploadIcon,
   UserIcon,
+  TrashIcon,
 } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { MailIcon, EyeIcon } from "@heroicons/react/solid";
@@ -26,6 +27,7 @@ const Profile = () => {
   const { profileId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isDeleteAccountModal, setIsDeleteAccountModal] = useState(false);
 
   useEffect(() => {
     dispatch(userProfileAction(profileId));
@@ -94,6 +96,11 @@ const Profile = () => {
 
   const unfollowHandler = () => {
     dispatch(userUnfollowAction(profileId));
+  };
+
+  const handleDeleteAccount = () => {
+    setIsDeleteAccountModal(false);
+    console.log("Deleting Account...");
   };
 
   return (
@@ -248,16 +255,54 @@ const Profile = () => {
                           )}
                           {/* Update Profile */}
                           {profile?._id === userAuth?.id && (
-                            <Link
-                              to="/update-profile"
-                              className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-                            >
-                              <UserIcon
-                                className="-ml-1 mr-2 h-5 w-5 text-gray-400"
-                                aria-hidden="true"
-                              />
-                              <span>Update Profile</span>
-                            </Link>
+                            <div className="relative">
+                              <Link
+                                to="/update-profile"
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+                              >
+                                <UserIcon
+                                  className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                                <span>Update Profile</span>
+                              </Link>
+                              <button
+                                onClick={() =>
+                                  setIsDeleteAccountModal(!isDeleteAccountModal)
+                                }
+                                className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-red-700 hover:bg-gray-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ml-3"
+                              >
+                                <TrashIcon className="-ml-1 mr-2 h-5 w-5 inherit" />{" "}
+                                <span>Delete Account</span>
+                              </button>
+                              {isDeleteAccountModal && (
+                                <div className="absolute right-0 mt-2 shadow-lg shadow-zinc-400 px-4 py-2 rounded-md border border-zinc-300">
+                                  <h3>
+                                    Do you want to{" "}
+                                    <span className="text-red-600 font-semibold">
+                                      Delete
+                                    </span>{" "}
+                                    your account?
+                                  </h3>
+                                  <div className="text-center flex items-center justify-center gap-4">
+                                    <button
+                                      onClick={handleDeleteAccount}
+                                      className="text-red-600 font-semibold"
+                                    >
+                                      Yes
+                                    </button>
+                                    <button
+                                      className="text-green-600 font-semibold"
+                                      onClick={() =>
+                                        setIsDeleteAccountModal(false)
+                                      }
+                                    >
+                                      Cancel
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                           )}
                           {/* Send Mail */}
                           {profile?._id !== userAuth?.id && (
