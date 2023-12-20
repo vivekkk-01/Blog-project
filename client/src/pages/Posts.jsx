@@ -192,7 +192,7 @@ const Posts = () => {
                 ) : (
                   posts?.map((post) => (
                     <div
-                      key={post._id}
+                      key={post?._id}
                       className="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6"
                     >
                       <div className="mb-10  w-full lg:w-1/4 px-3">
@@ -200,7 +200,7 @@ const Posts = () => {
                           {/* Post image */}
                           <img
                             className="w-full h-full object-cover rounded"
-                            src={post.image}
+                            src={post?.image}
                             alt=""
                           />
                         </Link>
@@ -211,7 +211,7 @@ const Posts = () => {
                             {/* Togle like  */}
                             <div className="">
                               {userAuth &&
-                              post.likes.find(
+                              post?.likes.find(
                                 (user) => user === userAuth.id
                               ) ? (
                                 <ThumUpIconSolid
@@ -239,13 +239,13 @@ const Posts = () => {
                           <div className="flex flex-row  justify-center items-center ml-4 mr-4 pb-2 pt-1">
                             <div>
                               {userAuth &&
-                              post.dislikes.find(
+                              post?.dislikes.find(
                                 (user) => user === userAuth.id
                               ) ? (
                                 <ThumbDownIconSolid
                                   onClick={toggleDislikeHandler.bind(
                                     null,
-                                    post._id
+                                    post?._id
                                   )}
                                   className="h-7 w-7 cursor-pointer text-gray-600"
                                 />
@@ -253,7 +253,7 @@ const Posts = () => {
                                 <ThumbDownIcon
                                   onClick={toggleDislikeHandler.bind(
                                     null,
-                                    post._id
+                                    post?._id
                                   )}
                                   className="h-7 w-7 cursor-pointer text-gray-600"
                                 />
@@ -305,7 +305,7 @@ const Posts = () => {
                                 to={`/profile/${post?.user?._id}`}
                                 className="text-yellow-400 hover:underline "
                               >
-                                {post?.user.firstName} {post?.user.lastName}
+                                {post?.user?.firstName} {post?.user?.lastName}
                               </Link>
                             </p>
                             <div className="flex space-x-1 text-sm text-green-500">
