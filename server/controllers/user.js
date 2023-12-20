@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
+const Post = require("../models/Post");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const sgMail = require("@sendgrid/mail");
@@ -7,6 +8,7 @@ const generateToken = require("../middlewares/token/generateToken");
 const cloudinaryUploadImg = require("../utils/cloudinary");
 const fs = require("fs");
 const cloudinary = require("cloudinary");
+const Comment = require("../models/Comment");
 
 exports.userRegister = async (req, res) => {
   try {
@@ -71,6 +73,8 @@ exports.getUsers = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.userId);
+    await Post.deleteMany({ user: req.params.userId });
+    await Comment.deleteMany({ user: req.params.userId });
     return res.json("User deleted successfully!");
   } catch (error) {
     return res.status(500).json("Something went wrong, please try again!");
