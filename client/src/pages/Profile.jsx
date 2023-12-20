@@ -11,7 +11,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { MailIcon, EyeIcon } from "@heroicons/react/solid";
 import {
+  deleteUserAction,
   getUserAction,
+  resetDeleteErrorAction,
   resetProfileAction,
   resetUserErrorAction,
   userFollowAction,
@@ -44,6 +46,8 @@ const Profile = () => {
     followError,
     isMailSent,
     isPasswordUpdate,
+    deleteLoading,
+    deleteError,
   } = useSelector((state) => state.user);
   const { userAuth } = useSelector((state) => state.user);
 
@@ -98,9 +102,14 @@ const Profile = () => {
     dispatch(userUnfollowAction(profileId));
   };
 
+  const deleteAccountHandler = () => {
+    dispatch(resetDeleteErrorAction())
+    setIsDeleteAccountModal(!isDeleteAccountModal);
+  };
+
   const handleDeleteAccount = () => {
     setIsDeleteAccountModal(false);
-    console.log("Deleting Account...");
+    dispatch(deleteUserAction());
   };
 
   return (
@@ -267,16 +276,31 @@ const Profile = () => {
                                 <span>Update Profile</span>
                               </Link>
                               <button
-                                onClick={() =>
-                                  setIsDeleteAccountModal(!isDeleteAccountModal)
-                                }
+                                onClick={deleteAccountHandler}
                                 className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-red-700 hover:bg-gray-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ml-3"
+                                disabled={deleteLoading}
                               >
-                                <TrashIcon className="-ml-1 mr-2 h-5 w-5 inherit" />{" "}
-                                <span>Delete Account</span>
+                                {!deleteLoading && (
+                                  <>
+                                    <TrashIcon className="-ml-1 mr-2 h-5 w-5 inherit" />{" "}
+                                    <span>Delete Account</span>
+                                  </>
+                                )}
+                                {deleteLoading && (
+                                  <ClipLoader
+                                    loading={deleteLoading}
+                                    size={15}
+                                    color="#fff"
+                                  />
+                                )}
                               </button>
+                              {deleteError && (
+                                <h3 className="absolute right-0 mt-3 text-red-600 font-semibold">
+                                  Error Deleting your Account. Try Again Later!
+                                </h3>
+                              )}
                               {isDeleteAccountModal && (
-                                <div className="absolute right-0 mt-2 shadow-lg shadow-zinc-400 px-4 py-2 rounded-md border border-zinc-300">
+                                <div className="absolute right-0 mt-3 shadow-lg shadow-zinc-400 px-4 py-2 rounded-md border border-zinc-300">
                                   <h3>
                                     Do you want to{" "}
                                     <span className="text-red-600 font-semibold">

@@ -29,6 +29,10 @@ import {
   setForgotPassword,
   setResetPassword,
   resetUserError,
+  setDeleteLoading,
+  setDeleteAccount,
+  setDeleteError,
+  resetDeleteAccountError,
 } from "../slices/userSlices";
 const baseUrl = "https://blog-backend-j4vm.onrender.com/api/users";
 
@@ -404,4 +408,28 @@ export const logoutUserAction = () => (dispatch) => {
 
 export const resetUserErrorAction = () => (dispatch) => {
   dispatch(resetUserError());
+};
+
+export const deleteUserAction = () => async (dispatch) => {
+  dispatch(setDeleteLoading());
+  const userInfo = JSON.parse(localStorage.getItem("myBlogUser"));
+  try {
+    await axios.delete(`${baseUrl}/${userInfo.id}`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch(setDeleteAccount());
+  } catch (error) {
+    const err = error.response
+      ? error.response.data
+      : error.message
+      ? error.message
+      : "Something went wrong, please try again!";
+    dispatch(setDeleteError(err));
+  }
+};
+
+export const resetDeleteErrorAction = () => (dispatch) => {
+  dispatch(resetDeleteAccountError());
 };

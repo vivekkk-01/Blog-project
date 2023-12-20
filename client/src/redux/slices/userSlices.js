@@ -26,6 +26,8 @@ const initialState = {
   isPasswordUpdate: false,
   isForgotPassword: false,
   isResetPassword: false,
+  deleteLoading: false,
+  deleteError: null,
 };
 
 const userSlice = createSlice({
@@ -183,6 +185,25 @@ const userSlice = createSlice({
       state.registered = null;
       state.error = null;
     },
+    setDeleteLoading: (state) => {
+      state.deleteLoading = true;
+    },
+    setDeleteAccount: (state) => {
+      state.deleteLoading = false;
+      state.deleteError = false;
+      state.loading = false;
+      state.userAuth = null;
+      state.registered = null;
+      state.error = null;
+    },
+    setDeleteError: (state, { payload }) => {
+      state.deleteLoading = false;
+      state.deleteError = payload;
+    },
+    resetDeleteAccountError: (state) => {
+      state.deleteLoading = false;
+      state.deleteError = null;
+    },
     setError: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
@@ -223,5 +244,9 @@ export const {
   setResetPassword,
   resetProfile,
   resetUserError,
+  setDeleteAccount,
+  setDeleteError,
+  setDeleteLoading,
+  resetDeleteAccountError,
 } = userSlice.actions;
 export default userSlice.reducer;
